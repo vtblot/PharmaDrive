@@ -1,0 +1,31 @@
+/*.flotant
+{
+	position: fixed;
+	top:5px;
+	min-width: 50%;
+}*/
+
+
+
+table
+{
+	border: 3px solid #CCC;
+}
+
+tr.lien:hover
+{
+	cursor : pointer;
+}
+
+tr.lien a,
+tr.lien a:hover,
+tr.lien a:focus
+{
+	color :#666;
+	text-decoration : none;
+}
+
+td, th
+{
+	border: 2px solid #CCC;
+}
