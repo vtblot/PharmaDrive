@@ -1,4 +1,4 @@
-# JS
+# Fichiers js du projet
 
 ## bootstrap.js
 js de bootstrap,
