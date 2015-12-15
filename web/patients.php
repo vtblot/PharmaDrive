@@ -2,6 +2,12 @@
 
 include_once 'nav.php';
 
+if(!$medoc)
+{
+  //si il est pas medecin, on le renvoie à l'aceuil
+  redirige('index');
+}
+
 $patients = $patientDao->selectAll();
 $i = 1;
 
