@@ -1,0 +1,4 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+RewriteRule ^([A-Za-z]+)(\/)?$ $1.php
