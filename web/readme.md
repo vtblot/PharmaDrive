@@ -26,3 +26,9 @@ En tête de page.
 * Appelle le /app/demarage.php pour les variables
 * Détermine le statut de l'utilisateur (inconnu/medecin/pharmacien)
 * Affiche la barre de navigation
+
+### patients.php
+Page affichant les patients enregistrés
+
+### visites.php
+Page affichant les visites effectuées pas le médecin
