@@ -6,5 +6,4 @@ DirectoryIndex index.php
 
 
 RewriteRule ^patients\/([A-Za-z]+)_([A-Za-z]+)$ patients.php?nom=$1&prenom=$2 [L] 
-
-RewriteRule ^([A-Za-z]+)\/?$ $1.php
+RewriteRule ^visites\/([0-9]+)$ visites.php?id=$1 [L]
