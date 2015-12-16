@@ -9,18 +9,21 @@ if(!$medoc)
 	redirige('index');
 }
 
-$visites = $visiteDao->selectForMedecin($_SESSION['user']);
+
 $i = 1;
 
 if(isset($_GET['nom']) and isset($_GET['prenom']))
 {
-  //on a renseillé un patient précis
+  	//on a renseillé un patient précis
 
 }
 else
 {
-  //sinon on liste les visites du médecin
-  include_once 'listeVisite.php';
+  	//sinon on liste les visites du médecin
+
+	//on recupere les visites du docteur
+	$visites = $visiteDao->selectForDoctor($_SESSION['user']);
+  	include_once 'listeVisite.php';
 }
 
 
