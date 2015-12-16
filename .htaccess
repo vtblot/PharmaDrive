@@ -3,22 +3,16 @@ RewriteEngine On
 
 #Gestion de la page d'acceuil
 DirectoryIndex web/index.php
-RewriteRule ^[web]?index$ web/index.php [L]
-
-
-#Pour la connexion
-RewriteRule ^connexion$ app/connexion.php [L]
-
-#Pour la deconnexion
-RewriteRule ^deconnexion$ app/deconnexion.php [L]
 
 #Pour le repertoire patient/
-RewriteRule ^[web]?patient[s]?[\/]([A-Za-z]+)_([A-Za-z]+)$ web/patient/index.php?nom=$1&prenom=$2 [L] 
-RewriteRule ^[web]?patient[s]?[\/]?$ web/patient/index.php [L]
+RewriteRule ^patient[s]?[\/]([A-Za-z]+)_([A-Za-z]+)$ web/patient/index.php?nom=$1&prenom=$2 [L] 
+RewriteRule ^patient[s]?[\/]?$ web/patient/index.php [L]
 
 #Pour le repertoire visite/
-RewriteRule ^[web]?visite[s]?[\/]([0-9]+)$ web/visite/index.php?id=$1 [L]
-RewriteRule ^[web]?visite[s]?[\/]?$ web/visite/index.php [L]
+RewriteRule ^visite[s]?[\/]([0-9]+)$ web/visite/index.php?id=$1 [L]
+RewriteRule ^visite[s]?[\/]?$ web/visite/index.php [L]
 
-#Pour ajouter l'extention .php
-RewriteRule ^([A-Za-z]+)[\/]?$ $1.php
+
+#Si l'url n'as pas été prise, on l'envoie à l'index
+RewriteRule ^([A-Za-z]+)[\/]?$ web/index.php?lien=$1
+
