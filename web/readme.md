@@ -7,6 +7,12 @@ Contient les fichiers CSS utilisés
 ## js/
 Contient les fichiers JS utilisés
 
+## patient/
+Affiche les patients
+
+## visites/
+Affiche les visites
+
 ### footer.php
 Pied de page
 
@@ -24,8 +30,3 @@ En tête de page.
 * Détermine le statut de l'utilisateur (inconnu/medecin/pharmacien)
 * Affiche la barre de navigation
 
-### patients.php
-Page affichant les patients enregistrés
-
-### visites.php
-Page affichant les visites effectuées pas le médecin
