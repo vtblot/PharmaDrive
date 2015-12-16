@@ -1,9 +1,6 @@
 # /app
-
 background de l'application
 
-### .htaccess
-Ajoute le .php si besion
 
 ### connexion.php
 Fichier appelé après le formulaire de connexion
