@@ -7,9 +7,6 @@ Contient les fichiers CSS utilisés
 ## js/
 Contient les fichiers JS utilisés
 
-### .htacess
-Gère les redirections et accès URL de l'application
-
 ### footer.php
 Pied de page
 
