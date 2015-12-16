@@ -1,9 +1,0 @@
-Options +FollowSymlinks
-RewriteEngine On
-
-#Gestion de la page d'acceuil
-DirectoryIndex index.php
-
-
-RewriteRule ^patients\/([A-Za-z]+)_([A-Za-z]+)$ patients.php?nom=$1&prenom=$2 [L] 
-RewriteRule ^visites\/([0-9]+)$ visites.php?id=$1 [L]
