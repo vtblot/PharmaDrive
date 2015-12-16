@@ -1,36 +1,4 @@
 <?php 
-require_once 'C:/wamp/www/ppe_pharmadrive_noob/app/demarage.php';
-
-//Pour vérifier
-if(isset($_SESSION))
-	var_dump($_SESSION);
-
-$co = false;
-$medoc = false;
-$pharma = false;
-
-if(isset($_SESSION['user']) && !empty($_SESSION['user']))
-{
-	//si la variable user est renseignée
-	if($_SESSION['user']->isAuthentified())
-	{
-		//si il est connecté
-		$co = true;
-
-		
-
-		if($_SESSION['user']->isMedecin())
-		{
-			$medoc = true;
-		}
-		else if($_SESSION['user']->isPharmacien())
-		{
-			$pharma = true;
-		}
-	}
-
-}
-
 
 if(!isset($titre))
 {
