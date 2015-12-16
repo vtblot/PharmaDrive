@@ -2,8 +2,11 @@
 
 PPE sur le thème GSB
 
-### app/
+## app/
 Background de l'application
 
-### web/
+## web/
 Front de l'application
+
+### .htaccess
+Ajoute les '.php' dans les url si nécessaire
