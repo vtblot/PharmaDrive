@@ -2,8 +2,6 @@
 
 require_once '../app/demarage.php';
 
-include_once 'nav.php';
-
 
 if(isset($_GET['lien']))
 {
@@ -42,30 +40,31 @@ if(isset($_GET['lien']))
 			}
 			redirige('/ppe_pharmadrive_noob');
 			break;
-		default:
-			//Si on est a la 'racine'
-			if($co)
-			{
-				echo '<ul>';
-					echo '<li>Patients : reste a faire la page du patient</li>';
-					echo '<li>Visites : reste les pages uniques</li>';
-				echo '</ul>';
-			}
-			else
-			{
-				echo '<form class="form-signin" method="post" action="connexion">';
-				echo '<fieldset>';
-				echo '<h2 class="form-signin-heading">Connexion</h2>';
-				echo '<label for="login" class="sr-only">Login</label>';
-				echo '<input type="text" id="mail" name="login" class="form-control" placeholder="Nom d\'utilisateur" autofocus>';
-				echo '<label for="pass" class="sr-only">Mot de passe</label>';
-				echo '<input type="password" id="pass" name="pass" class="form-control" placeholder="Mot de passe" >';
-				echo '</fieldset>';
-				echo '<input class="btn btn-lg btn-primary btn-block" type="submit" value="Connexion"/>';
-				echo '</form>';
-			}
-			include_once 'connexion.php';
-			break;
+	}
+}
+else
+{
+	include_once 'nav.php';
+			
+	if($co)
+	{
+		echo '<ul>';
+			echo '<li>Patients : reste a faire la page du patient</li>';
+			echo '<li>Visites : reste les pages uniques</li>';
+		echo '</ul>';
+	}
+	else
+	{
+		echo '<form class="form-signin" method="post" action="connexion">';
+		echo '<fieldset>';
+		echo '<h2 class="form-signin-heading">Connexion</h2>';
+		echo '<label for="login" class="sr-only">Login</label>';
+		echo '<input type="text" id="mail" name="login" class="form-control" placeholder="Nom d\'utilisateur" autofocus>';
+		echo '<label for="pass" class="sr-only">Mot de passe</label>';
+		echo '<input type="password" id="pass" name="pass" class="form-control" placeholder="Mot de passe" >';
+		echo '</fieldset>';
+		echo '<input class="btn btn-lg btn-primary btn-block" type="submit" value="Connexion"/>';
+		echo '</form>';
 	}
 }
 
