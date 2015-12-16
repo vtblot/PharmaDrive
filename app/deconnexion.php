@@ -6,4 +6,4 @@
 
 	$_SESSION['alert'] = new Alert('success','Vous avez bien été déconnecté');
 
-	redirige('../web/index');
+	redirige('index');
