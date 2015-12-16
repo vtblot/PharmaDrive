@@ -1,0 +1,5 @@
+Options +FollowSymlinks
+RewriteEngine On
+
+# ajoute des .php dans tous les sous repertoire
+RewriteRule ([A-Za-z]+)(\/)?$ $1.php
