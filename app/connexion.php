@@ -15,15 +15,13 @@ else if (isset($_POST['pass']) && empty($_POST['pass']))
 if($erreur)
 {
 	$_SESSION['alert'] = new Alert('danger','Erreur : le couple utilisateur/mot de passe incorect');
-	redirige("../web/index");
+	redirige("index");
 }
 else
 {
 	$user = new User();
 	$user->setLogin($_POST['mail']);
 	$user->setPass($_POST['pass']);
-
-	
 
 	if($userDao->connexion($user))
 	{
@@ -32,12 +30,12 @@ else
 		$_SESSION['user']= $user;
 
 		$_SESSION['alert'] = new Alert('success','Bonjour '.$user->getLogin());
-		redirige("../web/index");
+		redirige("index");
 	}
 	else
 	{
 		$_SESSION['alert'] = new Alert('danger','Erreur : le couple utilisateur/mot de passe incorect');
-		redirige("../web/index");
+		redirige("index");
 	}
 }
 
