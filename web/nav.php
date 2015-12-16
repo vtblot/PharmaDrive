@@ -1,7 +1,10 @@
 <?php 
-include_once '../app/demarage.php';
+require_once 'C:/wamp/www/ppe_pharmadrive_noob/app/demarage.php';
 
-var_dump($_SESSION);
+//Pour vérifier
+if(isset($_SESSION))
+	var_dump($_SESSION);
+
 $co = false;
 $medoc = false;
 $pharma = false;
@@ -31,7 +34,7 @@ if(isset($_SESSION['user']) && !empty($_SESSION['user']))
 
 if(!isset($titre))
 {
-	//si on a pas renseiller le titre, on en met un de base
+	//si on a pas renseillé le titre, on en met un de base
 	$titre = 'Pharmadrive';
 }
 else
@@ -55,7 +58,7 @@ else
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/ppe_pharmadrive_noob/web/index">Pharmadrive</a>
+			<a class="navbar-brand" href="/ppe_pharmadrive_noob/">Pharmadrive</a>
 			<?php if($co)
 			{
 				echo '<form class="navbar-form navbar-left" role="search">';
@@ -74,14 +77,14 @@ else
 					{
 						if($medoc)
 						{
-							echo '<li><a href="/ppe_pharmadrive_noob/web/ordonnances">Ordonnances</a></li>';
-							echo '<li><a href="/ppe_pharmadrive_noob/web/visites">Visites</a></li>';
+							echo '<li><a href="/ppe_pharmadrive_noob/ordonnances">Ordonnances</a></li>';
+							echo '<li><a href="/ppe_pharmadrive_noob/visites">Visites</a></li>';
 						}
 						else if($pharma)
 						{
-							echo '<li><a href="/ppe_pharmadrive_noob/web/comamndes">Commandes</a></li>';
+							echo '<li><a href="/ppe_pharmadrive_noob/comamndes">Commandes</a></li>';
 						}
-						echo '<li><a href="/ppe_pharmadrive_noob/app/deconnexion">Déconnexion</a></li>';
+						echo '<li><a href="/ppe_pharmadrive_noob/deconnexion">Déconnexion</a></li>';
 					}
 					?>
 				</ul>
