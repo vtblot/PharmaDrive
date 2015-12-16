@@ -19,14 +19,13 @@ Pied de page
 Chargé en bas de chaque page
 
 ### index.php
-Page d'acceuil
-
-Contient le formulaire de connexion si l'utilisateur n'est pas connecté. Sinon afficher les dernières visites pour les medecins et les dernières ordonnances reçues pour le pharmacien
+Controleur principal
+* acceuil
+* connexion
+* deconnexion
 
 ### nav.php
 En tête de page.
 
-* Appelle le /app/demarage.php pour les variables
-* Détermine le statut de l'utilisateur (inconnu/medecin/pharmacien)
-* Affiche la barre de navigation
+Affiche la barre de navigation
 
