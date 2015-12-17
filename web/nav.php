@@ -45,12 +45,12 @@ else
 					{
 						if($medoc)
 						{
-							echo '<li><a href="/ppe_pharmadrive_noob/ordonnances">Ordonnances</a></li>';
-							echo '<li><a href="/ppe_pharmadrive_noob/visites">Visites</a></li>';
+							echo '<li><a href="/ppe_pharmadrive_noob/ordonnance">Ordonnances</a></li>';
+							echo '<li><a href="/ppe_pharmadrive_noob/visite">Visites</a></li>';
 						}
 						else if($pharma)
 						{
-							echo '<li><a href="/ppe_pharmadrive_noob/comamndes">Commandes</a></li>';
+							echo '<li><a href="/ppe_pharmadrive_noob/comamnde">Commandes</a></li>';
 						}
 						echo '<li><a href="/ppe_pharmadrive_noob/deconnexion">Déconnexion</a></li>';
 					}
