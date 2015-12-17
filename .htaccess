@@ -9,10 +9,11 @@ RewriteRule ^patient[s]?[\/]([A-Za-z]+)_([A-Za-z]+)$ web/patient/index.php?nom=$
 RewriteRule ^patient[s]?[\/]?$ web/patient/index.php [L]
 
 #Pour le repertoire visite/
-RewriteRule ^visite[s]?[\/]([0-9]+)$ web/visite/index.php?id=$1 [L]
+RewriteRule ^visite[s]?[\/]([0-9]+)$ web/visite/index.php?lien=detail&id=$1 [L]
+RewriteRule ^visite[s]?[\/]([A-Za-z]+)$ web/visite/index.php?lien=$1 [L]
 RewriteRule ^visite[s]?[\/]?$ web/visite/index.php [L]
 
 
 #Si l'url n'as pas été prise, on l'envoie à l'index
-RewriteRule ^([A-Za-z]+)[\/]?$ web/index.php?lien=$1
+RewriteRule ^([A-Za-z]+)[\/]?$ web/index.php?lien=$1 [L]
 
