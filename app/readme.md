@@ -1,6 +1,8 @@
 # /app
 background de l'application
 
+## classes/
+Classe de l'application
 
 ### connexion.php
 Fichier appelé par le controleur principal
