@@ -40,6 +40,10 @@ if(isset($_GET['lien']))
 			}
 			redirige('/ppe_pharmadrive_noob');
 			break;
+		default:
+			//en cas de lien invalide, on redirige vers l'index
+			redirige('/ppe_pharmadrive_noob')
+			break;
 	}
 }
 else
