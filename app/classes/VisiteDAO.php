@@ -64,7 +64,7 @@ class VisiteDAO
 		}
 	}
 
-	public function selectForMedecin(User $medecin)
+	public function selectForDoctor(User $medecin)
 	{
 		try {
 			//on recupere les données
