@@ -5,7 +5,8 @@ RewriteEngine On
 DirectoryIndex web/index.php
 
 #Pour le repertoire patient/
-RewriteRule ^patient[s]?[\/]([A-Za-z]+)_([A-Za-z]+)$ web/patient/index.php?nom=$1&prenom=$2 [L] 
+RewriteRule ^patient[s]?[\/]([A-Za-z]+)_([A-Za-z]+)$ web/patient/index.php?lien=detail&nom=$1&prenom=$2 [L] 
+RewriteRule ^patient[s]?[\/]([A-Za-z]+)$ web/patient/index.php?lien=$1 [L]
 RewriteRule ^patient[s]?[\/]?$ web/patient/index.php [L]
 
 #Pour le repertoire visite/
