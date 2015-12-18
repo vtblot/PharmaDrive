@@ -10,6 +10,8 @@ if(isset($_GET['lien']))
 			if(!$co)
 			{
 				//si il est pas co, on le renvoie
+
+				$_SESSION['alert'] = new Alert('erreur','Vous n\'êtes pas connecté');
 				redirige('/ppe_pharmadrive_noob');
 			}
 			//on inclu la page de deconnexion
@@ -21,6 +23,8 @@ if(isset($_GET['lien']))
 			if($co)
 			{
 				//si il est co, on le renvoie
+
+				$_SESSION['alert'] = new Alert('erreur','Vous êtes déjà connecté');
 				redirige('/ppe_pharmadrive_noob');
 			}
 			//on vérifie la présence des chaines de caractère
@@ -42,7 +46,9 @@ if(isset($_GET['lien']))
 			break;
 		default:
 			//en cas de lien invalide, on redirige vers l'index
-			redirige('/ppe_pharmadrive_noob')
+
+			$_SESSION['alert'] = new Alert('erreur','Cette pas n\'existe pas');
+			redirige('/ppe_pharmadrive_noob');
 			break;
 	}
 }
