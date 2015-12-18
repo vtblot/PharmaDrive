@@ -3,8 +3,8 @@ Gère les visites
 
 ### index.php
 Controleur
-          - _base_ : affiche tous les patients
-          - detail : voir un patient particulier
+- [vide] : affiche toutes les visites
+- detail : voir une visite particulière
 
-### listePatient.php
-Affiche la liste des patients
+### listeVisite.php
+Affiche la liste des visites
