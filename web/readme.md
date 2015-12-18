@@ -20,9 +20,9 @@ Chargé en bas de chaque page
 
 ### index.php
 Controleur principal
-* acceuil
-* connexion
-* deconnexion
+* [vide] : affiche le formulaire si l'utilisateur n'est pas connecté
+* connexion : traite le formulaire de connection
+* deconnexion : deconnecte l'utilisateur
 
 ### nav.php
 En tête de page.
