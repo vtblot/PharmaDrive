@@ -1,11 +1,8 @@
-/*.flotant
-{
-	position: fixed;
-	top:5px;
-	min-width: 50%;
-}*/
-
-
+.float {
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
 table
 {
