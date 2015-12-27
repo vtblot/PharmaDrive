@@ -95,7 +95,7 @@ class VisiteDAO
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
 
-			$data=$q->fetch()
+			$data=$q->fetch();
 				
 			//et on les écrit dans un Visite
 			$visite = new Visite();
