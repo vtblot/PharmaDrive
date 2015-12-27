@@ -82,6 +82,11 @@ class PatientDAO
 	**/
 	public function select($id)
 	{
+		if(!$this->exist($id))
+		{
+			//le patient n'existe pas, ce n'est pas la peine de la chercher
+			return 0;
+		}
 		try {
 			//on recupere les données
 			$q = $this->_db->prepare('SELECT * FROM patient WHERE id = :id');
