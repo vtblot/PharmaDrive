@@ -1,5 +1,6 @@
 <?php 
 
+
 /**
 * 
 */
@@ -13,9 +14,37 @@ class PatientDAO
 		$this->_db = $db;
 	}
 	
-	/**
-	*
-	**/
+
+	public function exist($id)
+	{
+		try {
+			//on recupere les données
+			$q = $this->_db->prepare('SELECT * FROM patient WHERE id = :id');
+			$q->bindValue(':id',$id,PDO::PARAM_INT);
+			$q->execute();
+
+			if($data=$q->fetch()) 
+			{
+				//on trouve quelque chose donc la visite existe
+				$q->closeCursor();
+
+				return true;
+			}
+			else
+			{
+				//on trouve rien donc la visite n'existe pas
+				$q->closeCursor();
+
+				return false;
+			}
+
+			
+		} catch (Exception $e) {
+			return 0;
+		}
+	}
+
+
 	public function insert(Patient $patient)
 	{
 		try {
@@ -32,10 +61,7 @@ class PatientDAO
 			return 0;
 		}
 	}
-	
-	/**
-	*
-	**/
+
 	public function select($id)
 	{
 		try {
@@ -59,6 +85,7 @@ class PatientDAO
 			return 0;
 		}
 	}
+
 
 	public function selectAll()
 	{
@@ -86,9 +113,7 @@ class PatientDAO
 		}
 	}
 	
-	/**
-	*
-	**/
+
 	public function update(Patient $patient)
 	{
 		try {
@@ -108,9 +133,7 @@ class PatientDAO
 		}
 	}
 	
-	/**
-	*
-	**/
+
 	public function delete(Patient $patient)
 	{
 		try {
