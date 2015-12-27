@@ -14,7 +14,12 @@ class PatientDAO
 		$this->_db = $db;
 	}
 	
-
+	/**
+	*	Vérifie dans la bdd que le patient existe
+	*
+	*	@param $id L'id du patient à vérifier
+	*	@return True si le patient existe sinon false
+	**/
 	public function exist($id)
 	{
 		try {
@@ -44,7 +49,13 @@ class PatientDAO
 		}
 	}
 
-
+	/**
+	* Permet d'inserer le patient dans la bdd
+	*
+	*	@param $patient Patient à inserer
+	*	@return 1 si tout c'est bien passé,
+	*			2 si il y a eu un problème
+	**/
 	public function insert(Patient $patient)
 	{
 		try {
@@ -61,7 +72,14 @@ class PatientDAO
 			return 0;
 		}
 	}
-
+	
+	/**
+	* 	Permet de récupérer un patient dans la bdd
+	*
+	*	@param  id du patient à récuperer
+	*	@return Patient si tout c'est bien passé
+	*			0 si il y a eu une erreur
+	**/
 	public function select($id)
 	{
 		try {
@@ -86,7 +104,13 @@ class PatientDAO
 		}
 	}
 
-
+	/**
+	*	Selectionne tous les patients
+	*
+	*	@param 
+	*	@return Array des patients
+	*			0 si il y a eu un problème
+	**/
 	public function selectAll()
 	{
 		try {
@@ -113,7 +137,13 @@ class PatientDAO
 		}
 	}
 	
-
+	/**
+	*	Met un jour un patient dans la bdd
+	*	
+	*	@param $patient Patient à mettre à jour
+	*	@return 1 si tout c'est bien passé
+	*			0 si il y eu une erreur
+	*/
 	public function update(Patient $patient)
 	{
 		try {
@@ -133,7 +163,13 @@ class PatientDAO
 		}
 	}
 	
-
+	/**
+	*	Supprime un patient dans la bdd
+	*	
+	*	@param $patient Patient à supprimer
+	*	@return 1 si tout c'est bien passé
+	*			0 si il y eu une erreur
+	*/
 	public function delete(Patient $patient)
 	{
 		try {
