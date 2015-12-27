@@ -16,6 +16,35 @@ class VisiteDAO
 		$this->_patientDao = new PatientDao($db);
 	}
 
+	public function exist($id)
+	{
+		try {
+			//on recupere les données
+			$q = $this->_db->prepare('SELECT * FROM visite WHERE id = :id');
+			$q->bindValue(':id',$id,PDO::PARAM_INT);
+			$q->execute();
+
+			if($data=$q->fetch()) 
+			{
+				//on trouve quelque chose donc la visite existe
+				$q->closeCursor();
+
+				return true;
+			}
+			else
+			{
+				//on trouve rien donc la visite n'existe pas
+				$q->closeCursor();
+
+				return false;
+			}
+
+			
+		} catch (Exception $e) {
+			return 0;
+		}
+	}
+
 	
 	public function insert(Visite $visite)
 	{
@@ -37,13 +66,20 @@ class VisiteDAO
 	
 	public function select($id)
 	{
+		if(!$this->exist($id))
+		{
+			//la visite n'existe pas, ce n'est pas la peine de la chercher
+
+			return -1;
+		}
 		try {
 			//on recupere les données
 			$q = $this->_db->prepare('SELECT * FROM visite WHERE id = :id');
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
-			$data=$q->fetch();
 
+			$data=$q->fetch()
+				
 			//et on les écrit dans un Visite
 			$visite = new Visite();
 			$visite->setId($id);
@@ -52,13 +88,12 @@ class VisiteDAO
 				
 			$visite->setMedecin($this->_userDao->select($data['Id_medecin'])); //on va cherche le medecin grace à l'id
 			$visite->setPatient($this->_patientDao->select($data['Id_patient'])); //on va cherche le patient grace à l'id
-
 			$visite->setDateVisite($data['Date_Visite']);
 			$visite->setCommentaire($data['Commentaire']);
-
 			$q->closeCursor();
 
 			return $visite;
+			
 		} catch (Exception $e) {
 			return 0;
 		}
