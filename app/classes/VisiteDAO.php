@@ -16,6 +16,13 @@ class VisiteDAO
 		$this->_patientDao = new PatientDao($db);
 	}
 
+	/**
+	*	Vérifie dans la bdd que la visite existe
+	*
+	*	@param $id L'id de la visite à vérifier
+	*	@return True si la visite existe sinon false
+	*			0 si il y a eu une erreur
+	**/
 	public function exist($id)
 	{
 		try {
@@ -37,15 +44,19 @@ class VisiteDAO
 				$q->closeCursor();
 
 				return false;
-			}
-
-			
+			}			
 		} catch (Exception $e) {
 			return 0;
 		}
 	}
 
-	
+	/**
+	* Permet d'inserer la visite dans la bdd
+	*
+	*	@param $visite Visite à inserer
+	*	@return 1 si tout c'est bien passé,
+	*			2 si il y a eu un problème
+	**/
 	public function insert(Visite $visite)
 	{
 		try {
@@ -64,13 +75,19 @@ class VisiteDAO
 		}
 	}
 	
+	/**
+	* 	Permet de récupérer une visite dans la bdd
+	*
+	*	@param $id id de la visite à récuperer
+	*	@return Visite si tout c'est bien passé
+	*			0 si il y a eu une erreur
+	**/
 	public function select($id)
 	{
 		if(!$this->exist($id))
 		{
 			//la visite n'existe pas, ce n'est pas la peine de la chercher
-
-			return -1;
+			return 0;
 		}
 		try {
 			//on recupere les données
@@ -92,13 +109,19 @@ class VisiteDAO
 			$visite->setCommentaire($data['Commentaire']);
 			$q->closeCursor();
 
-			return $visite;
-			
+			return $visite;			
 		} catch (Exception $e) {
 			return 0;
 		}
 	}
 
+	/**
+	*	Selectionne toutes les visites d'un docteur
+	*
+	*	@param $medecin Medecin
+	*	@return Array des visites
+	*			0 si il y a eu un problème
+	**/
 	public function selectForDoctor(User $medecin)
 	{
 		try {
@@ -132,6 +155,13 @@ class VisiteDAO
 		}
 	}
 	
+	/**
+	*	Met un jour une visite dans la bdd
+	*	
+	*	@param $visite Visite à mettre à jour
+	*	@return 1 si tout c'est bien passé
+	*			0 si il y eu une erreur
+	*/
 	public function update(Visite $visite)
 	{
 		try {
@@ -150,6 +180,13 @@ class VisiteDAO
 		}
 	}
 	
+	/**
+	*	Supprime une visite dans la bdd
+	*	
+	*	@param $visite Visite à supprimer
+	*	@return 1 si tout c'est bien passé
+	*			0 si il y eu une erreur
+	*/
 	public function delete(Visite $visite)
 	{
 		try {
