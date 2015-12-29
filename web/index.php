@@ -47,7 +47,7 @@ if(isset($_GET['lien']))
 		default:
 			//en cas de lien invalide, on redirige vers l'index
 
-			$_SESSION['alert'] = new Alert('erreur','Cette pas n\'existe pas');
+			$_SESSION['alert'] = new Alert('erreur','Cette page n\'existe pas');
 			redirige('/ppe_pharmadrive_noob');
 			break;
 	}
@@ -58,24 +58,26 @@ else
 			
 	if($co)
 	{
-		echo '<ul>';
-			echo '<li>Patients : reste a faire la page du patient</li>';
-			echo '<li>Visites : reste les pages uniques</li>';
-		echo '</ul>';
+		echo '<ul>'.PHP_EOL;
+		echo '	<li>Patients : reste a faire la page du patient</li>'.PHP_EOL;
+		echo '	<li>Visites : reste les pages uniques</li>'.PHP_EOL;
+		echo '</ul>'.PHP_EOL;
 	}
 	else
 	{
-		echo '<form class="form-signin" method="post" action="connexion">';
-		echo '<fieldset>';
-		echo '<h2 class="form-signin-heading">Connexion</h2>';
-		echo '<label for="login" class="sr-only">Login</label>';
-		echo '<input type="text" id="mail" name="login" class="form-control" placeholder="Nom d\'utilisateur" autofocus>';
-		echo '<label for="pass" class="sr-only">Mot de passe</label>';
-		echo '<input type="password" id="pass" name="pass" class="form-control" placeholder="Mot de passe" >';
-		echo '</fieldset>';
-		echo '<input class="btn btn-lg btn-primary btn-block" type="submit" value="Connexion"/>';
-		echo '</form>';
+		echo '<form class="form-signin" method="post" action="connexion">'.PHP_EOL;
+		echo '	<fieldset>'.PHP_EOL;
+		echo '	<h2 class="form-signin-heading">Connexion</h2>'.PHP_EOL;
+		echo '	<label for="login" class="sr-only">Login</label>'.PHP_EOL;
+		echo '	<input type="text" id="mail" name="login" class="form-control" placeholder="Nom d\'utilisateur" autofocus>'.PHP_EOL;
+		echo '	<label for="pass" class="sr-only">Mot de passe</label>'.PHP_EOL;
+		echo '	<input type="password" id="pass" name="pass" class="form-control" placeholder="Mot de passe" >'.PHP_EOL;
+		echo '	</fieldset>'.PHP_EOL;
+		echo '	<input class="btn btn-lg btn-primary btn-block" type="submit" value="Connexion"/>'.PHP_EOL;
+		echo '</form>'.PHP_EOL;
 	}
+
+
 }
 
 
