@@ -1,11 +1,4 @@
 <?php
-	
-	function chargerClasse($class)
-	{
-		//echo $class.'<br/>';
-		//echo '../model/classes/'.$class.'.php<br/>';
-		require('classes/'.$class.'.php'); // On inclut la classe correspondante au paramètre passé.
-	}
 
 
 	function getLocalHeure()
