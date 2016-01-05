@@ -48,9 +48,17 @@ if(isset($_GET['lien']))
 		case 'nouveau':
 			//on veut créer une nouvelle visite
 
-			//on a besion de la liste des pastients
-			$patients = $patientDao->selectAll();
-			include_once 'nouveau.php';
+			if(isset($_POST['commentaire']))
+			{
+				//si on envoie le formulaire
+				include '../../app/newVisite.php';
+			}
+			else
+			{
+				//on a besion de la liste des pastients
+				$patients = $patientDao->selectAll();
+				require_once 'nouveau.php';
+			}			
 			break;
 		default:
 			//en cas de lien invalide, on redirige vers l'index
