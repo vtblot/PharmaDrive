@@ -1,6 +1,5 @@
 <?php 
 
-
 /**
 * 
 */
@@ -97,9 +96,9 @@ class PatientDAO
 			//et on les écrit dans un Patient
 			$patient = new Patient();
 			$patient->setId($id);
-			$patient->setNom($data['Nom']);
-			$patient->setPrenom($data['Prenom']);
-			$patient->setNumSecu($data['Num_secu']);
+			$patient->setNom($data['nom']);
+			$patient->setPrenom($data['prenom']);
+			$patient->setNumSecu($data['num_secu']);
 
 			$q->closeCursor();
 
@@ -120,17 +119,17 @@ class PatientDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT * FROM patient ORDER BY Nom');
+			$q = $this->_db->prepare('SELECT * FROM patient ORDER BY nom');
 			$q->execute();
 
 			while($data=$q->fetch())
 			{
 				//et on les écrit dans un Patient
 				$patient = new Patient();
-				$patient->setId($data['Id']);
-				$patient->setNom($data['Nom']);
-				$patient->setPrenom($data['Prenom']);
-				$patient->setNumSecu($data['Num_secu']);
+				$patient->setId($data['id']);
+				$patient->setNom($data['nom']);
+				$patient->setPrenom($data['prenom']);
+				$patient->setNumSecu($data['num_secu']);
 
 				$array[] = $patient;
 			}
