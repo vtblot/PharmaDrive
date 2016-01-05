@@ -13,13 +13,10 @@
 		return $jour;
 	}
 	
-	function redirige($lien)
+	function redirige($lien = 'index')
 	{
-		if(isset($lien))
-		{
-			header('Location:'.$lien);
-			exit;
-		}
+		header('Location:'.$lien);
+		exit;
 	}
 	
 ?>
