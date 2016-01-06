@@ -8,10 +8,9 @@ include_once '../nav.php';
 if(!$medoc)
 {
   	//si il est pas medecin, on le renvoie à l'aceuil
-  	redirige('../');
+  	redirige('/ppe_pharmadrive_noob');
 }
 
-$i = 1;
 
 var_dump($_GET);
 
@@ -21,12 +20,12 @@ if(isset($_GET['lien']))
 		case 'detail':
 			//on veut voir le detail d'une patient
 			
-			if(!isset($_GET['nom']) && is_int($_GET['prenom']))
+			if(!isset($_GET['nom']) && !isset($_GET['prenom']))
 			{
 			  	//si on a pas renseiller le nom et le prenom pour le patient
 
 				//on créer un message d'erreur et on redirige
-				$_SESSION['alert'] = new Alert('erreur','Patient introuvable');
+				$_SESSION['alert'] = new Alert('erreur','Patient invalide');
 				redirige('/ppe_pharmadrive_noob/patient');
 			}
 
@@ -43,19 +42,23 @@ if(isset($_GET['lien']))
 			break;
 		case 'nouveau':
 			//on veut créer un patient
+
+		
 			include_once 'nouveau.php';
 			break;
 		default:
 			//en cas de lien invalide, on redirige vers l'index
+
+			$_SESSION['alert'] = new Alert('erreur','Cette page n\'existe pas');
 			redirige('/ppe_pharmadrive_noob/patient');
 			break;
 	}
 }
 else 
 {
-  	//sinon on liste les visites du médecin
+	$i = 1;
 
-	//on recupere les visites du docteur
+	//on recupere les patients
 	$patients = $patientDao->selectAll();
   	include_once 'listePatient.php';
 }
