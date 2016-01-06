@@ -18,10 +18,16 @@
 	$visite->setDateVisite(getLocalJour());
 	$visite->setCommentaire($commentaire);
 
-	var_dump($visiteDao->insert($visite));
-
-
-	echo 'nouvelle visite';
-
+	if($visiteDao->insert($visite)===1)
+	{
+		//on a bien ajouté la visite
+		$_SESSION['alert'] = new Alert('success','Visite ajoutée');
+		redirige('/ppe_pharmadrive_noob/visite');
+	}
+	else
+	{
+		$_SESSION['alert'] = new Alert('danger','Une erreur est survenue');
+		redirige('/ppe_pharmadrive_noob/visite/nouveau');
+	}
 
 ?>
