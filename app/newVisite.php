@@ -1,6 +1,5 @@
 <?php 
 
-	var_dump($_POST);
 	$commentaire = (isset($_POST['commentaire']))?$_POST['commentaire']:'';
 	$id = (isset($_POST['patient']))?$_POST['patient']:'';
 
@@ -15,7 +14,7 @@
 	$visite = new Visite();
 	$visite->setIdMedecin($_SESSION['user']->getId());
 	$visite->setIdPatient($id);
-	$visite->setDateVisite(getLocalJour());
+	$visite->setDateVisite(date('Y-m-d'));
 	$visite->setCommentaire($commentaire);
 
 	if($visiteDao->insert($visite)===1)
