@@ -12,9 +12,17 @@
 		return $jour;
 	}
 	
-	function mailCorect($email)
+	function mailCorrect($email)
 	{
 		if(preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/", $email))
+  			return true;
+		else
+			return false;
+	}
+
+	function numSecuCorrect($numSecu)
+	{
+		if(preg_match("/^[1-2][0-9]{2}0[0-9]|1[0-2][0-9]{5}[0-9]{3}$/", $numSecu))
   			return true;
 		else
 			return false;
