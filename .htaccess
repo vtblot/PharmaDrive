@@ -4,6 +4,10 @@ RewriteEngine On
 #Gestion de la page d'acceuil
 DirectoryIndex web/index.php
 
+#Pour le repertoire ordonance
+RewriteRule ^ordonnance[s]?[\/]([A-Za-z]+)$ web/ordonnance/index.php?lien=$1 [L]
+RewriteRule ^ordonnance[s]?[\/]?$ webordonnancet/index.php [L]
+
 #Pour le repertoire patient/
 RewriteRule ^patient[s]?[\/]([A-Za-z]+)_([A-Za-z]+)$ web/patient/index.php?lien=detail&nom=$1&prenom=$2 [L] 
 RewriteRule ^patient[s]?[\/]([A-Za-z]+)$ web/patient/index.php?lien=$1 [L]
