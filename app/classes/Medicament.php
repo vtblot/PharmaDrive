@@ -1,12 +1,22 @@
 <?php 
 
 
-class 
+class Medicament
 {
+	private $_id;
 	private $_nom;
 	private $_numIncompatible;
 	private $_nbParBoite;
 	private $_nbBoite;
+
+	public function getId()
+	{
+		return $this->_id;
+	}
+	public function setId($id)
+	{
+		$this->_id=$id;
+	}
 
 	public function getNom()
 	{
@@ -15,7 +25,7 @@ class
 
 	public function setNom($nom)
 	{
-		$this->_nom = $nom;
+		$this->_nom = ucfirst($nom);
 	}
 
 	public function getNumIncompatible()
@@ -48,5 +58,3 @@ class
 }
 
 
-
- ?>
