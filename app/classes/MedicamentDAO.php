@@ -101,7 +101,41 @@ class MedicamentDAO
 			return 0;
 		}
 	}
-	
+
+	/**
+	*	Récupère tous les médicaments de la bdd
+	*
+	*	@return Tableau de Médicament
+	**/
+	public function selectAll()
+	{
+		try {
+			//on recupere les données
+			$q = $this->_db->prepare('SELECT * FROM medicament ORDER BY nom');
+			$q->execute();
+
+			while($data=$q->fetch())
+			{
+				//et on les écrit dans un Patient
+				$medicament = new Medicament();
+				$medicament->setId($data['id']);
+				$medicament->setNom($data['nom']);
+				$medicament->setNumIncompatible($data['nombre_incomp']);
+				$medicament->setNbParBoite($data['nb_par_boite']);
+				$medicament->setNbBoite($data['nb_de_boite']);
+
+
+				$array[] = $medicament;
+			}
+			$q->closeCursor();
+			
+			return $array;
+		} catch (Exception $e) {
+			return 0;
+		}
+	}
+
+
 	/**
 	*	Met un jour un medicament dans la bdd
 	*	
