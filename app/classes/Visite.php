@@ -8,8 +8,6 @@ class Visite
 	*							*
 	*****************************/
 	private $_id;
-	private $_idMedecin;
-	private $_idPatient;
 
 	/****************************
 	*							*
@@ -27,7 +25,15 @@ class Visite
 	*					Fonctions pratiques						*
 	*															*
 	*************************************************************/
+	public function getIdMedecin()
+	{
+		return $this->_medecin->getId();
+	}
 
+	public function getIdPatient()
+	{
+		return $this->_patient->getId() ;
+	}
 
 	/************************************************************
 	*															*
@@ -41,24 +47,6 @@ class Visite
 	public function setId($id)
 	{
 		$this->_id = $id;
-	}
-
-	public function getIdMedecin()
-	{
-		return $this->_idMedecin;
-	}
-	public function setIdMedecin($idMedecin)
-	{
-		$this->_idMedecin=$idMedecin;
-	}
-
-	public function getIdPatient()
-	{
-		return $this->_idPatient ;
-	}
-	public function setIdPatient($idPatient)
-	{
-		$this->_idPatient=$idPatient;
 	}
 
 	public function getMedecin()
