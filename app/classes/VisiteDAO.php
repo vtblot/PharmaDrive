@@ -100,8 +100,6 @@ class VisiteDAO
 			//et on les écrit dans un Visite
 			$visite = new Visite();
 			$visite->setId($id);
-			$visite->setIdMedecin($data['Id_medecin']);
-			$visite->setIdPatient($data['Id_patient']);
 				
 			$visite->setMedecin($this->_userDao->select($data['Id_medecin'])); //on va cherche le medecin grace à l'id
 			$visite->setPatient($this->_patientDao->select($data['Id_patient'])); //on va cherche le patient grace à l'id
@@ -135,8 +133,6 @@ class VisiteDAO
 				//et on les écrit dans une Visite
 				$visite = new Visite();
 				$visite->setId($data['Id']);
-				$visite->setIdMedecin($data['Id_medecin']);
-				$visite->setIdPatient($data['Id_patient']);
 
 				$visite->setMedecin($this->_userDao->select($data['Id_medecin'])); //on va cherche le medecin grace à l'id
 				$visite->setPatient($this->_patientDao->select($data['Id_patient'])); //on va cherche le patient grace à l'id
