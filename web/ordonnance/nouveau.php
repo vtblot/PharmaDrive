@@ -6,6 +6,7 @@
     <label for="select" class="col-lg-2 control-label">Nom</label>
     <div class="col-lg-10">
       <select class="form-control" id="select">
+        <option value="vide"></option>
         <?php foreach ($patients as $patient): ?>
           <option value="<?=$patient->getId()?>"><?=$patient->getNom().' '.$patient->getPrenom()?></option>
         <?php endforeach ?>
@@ -16,8 +17,7 @@
   <div class="form-group">
     <label for="textArea" class="col-lg-2 control-label">Observation particulière</label>
     <div class="col-lg-10">
-      <textarea class="form-control" rows="3" id="textArea"></textarea>
-      <span class="help-block">Ici, indiquez des symptômes particuliers ou observations semblant importants à historiser (non obligatoire)</span>
+      <textarea class="form-control" rows="3" id="textArea" placeholder="Ici, indiquez des symptômes particuliers ou observations semblant importants à historiser (non obligatoire)"></textarea>
     </div>
   </div>
 
@@ -26,6 +26,7 @@
     <label for="select" class="col-lg-2 control-label">Nom</label>
     <div class="col-lg-10">
       <select class="form-control" id="select">
+        <option value="vide"></option>
         <?php foreach ($medicaments as $medicament): ?>
           <option value="<?=$patient->getId()?>"><?=$medicament->getNom()?></option>
         <?php endforeach ?>
