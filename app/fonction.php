@@ -1,15 +1,14 @@
 <?php
-	function chaine_aleatoire($nb_car, $chaine = 'azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN123456789')
+	function randomStr($car=20) 
 	{
-	    $nb_lettres = strlen($chaine) - 1;
-	    $generation = '';
-	    for($i=0; $i < $nb_car; $i++)
-	    {
-	        $pos = mt_rand(0, $nb_lettres);
-	        $car = $chaine[$pos];
-	        $generation .= $car;
-	    }
-	    return $generation;
+		$string = "";
+		$chaine = "abcdefghijklmnpqrstuvwxyAZERTYUIOPQSDFGHJKLMWXCVBN123456789";
+		srand((double)microtime()*1000000);
+		for($i=0; $i<$car; $i++) 
+		{
+			$string .= $chaine[rand()%strlen($chaine)];
+		}
+		return $string;
 	}
 	
 	function getLocalHeure()
