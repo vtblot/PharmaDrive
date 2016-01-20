@@ -23,7 +23,7 @@
 		return $jour;
 	}
 	
-	function mailCorrect($email)
+	function isEmail($email)
 	{
 		if(preg_match("/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,4}$/", $email))
   			return true;
@@ -31,7 +31,7 @@
 			return false;
 	}
 
-	function numSecuCorrect($numSecu)
+	function isNumSecu($numSecu)
 	{
 		if(preg_match("/^[1-2][0-9]{2}0[0-9]|1[0-2][0-9]{5}[0-9]{3}$/", $numSecu))
   			return true;
