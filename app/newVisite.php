@@ -12,8 +12,8 @@
 	}
 
 	$visite = new Visite();
-	$visite->setIdMedecin($_SESSION['user']->getId());
-	$visite->setIdPatient($id);
+	$visite->setMedecin(new User($_SESSION['user']->getId()));
+	$visite->setPatient(new Patient($id));
 	$visite->setDateVisite(date('Y-m-d'));
 	$visite->setCommentaire($commentaire);
 
