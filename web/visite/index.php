@@ -13,9 +13,6 @@ if(!$medoc)
 $i = 1;
 include_once '../nav.php';
 
-
-var_dump($_GET);
-
 if(isset($_GET['lien']))
 {
 	switch ($_GET['lien']) {
@@ -39,11 +36,6 @@ if(isset($_GET['lien']))
 			}
 
 			var_dump($visiteDao->select($_GET['id']));
-			/**
-			*
-			*  METTRE LE CODE CORRESPONDANT
-			*
-			*/
 			break;
 		case 'nouveau':
 			//on veut créer une nouvelle visite
@@ -51,7 +43,7 @@ if(isset($_GET['lien']))
 			if(isset($_POST['commentaire']))
 			{
 				//si on envoie le formulaire
-				include '../../app/newVisite.php';
+				require_once '../../app/newVisite.php';
 			}
 			else
 			{
