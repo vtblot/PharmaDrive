@@ -24,7 +24,7 @@ class MedicamentDAO
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
 
-			if($data=$q->fetch()) 
+			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
 				$q->closeCursor();
@@ -55,7 +55,7 @@ class MedicamentDAO
 	public function insert(Medicament $medicament)
 	{
 		try {
-			$q = $this->_db->prepare('INSERT INTO medicament(nom,nombre_incomp,nb_par_boite,nb_de_boite) VALUES (:nom,:incompatible,:nbParBoite,nbBoite)');
+			$q = $this->_db->prepare('INSERT INTO medicament(nom,nombre_incomp,nb_par_boite,nb_de_boite) VALUES (:nom,:incompatible,:nbParBoite,:nbBoite)');
 			$q->bindValue(':nom',$medicament->getNom(),PDO::PARAM_STR);
 			$q->bindValue(':incompatible',$medicament->getNumImcopatible(),PDO::PARAM_STR);
 			$q->bindValue(':nbParBoite',$medicament->getNbParBoite(),PDO::PARAM_STR);
@@ -84,15 +84,15 @@ class MedicamentDAO
 			$q = $this->_db->prepare('SELECT * FROM medicament WHERE id = :id');
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
-			$data=$q->fetch();
+			$data=$q->fetch(PDO::FETCH_OBJ);
 
 			//et on les écrit dans un Medicament
 			$medicament = new Medicament();
 			$medicament->setId($id);
-			$medicament->setNom($data['nom']);
-			$medicament->setNumIncompatible($data['nombre_incomp']);
-			$medicament->setNbParBoite($data['nb_par_boite']);
-			$medicament->setNbBoite($data['nb_de_boite']);
+			$medicament->setNom($data->nom);
+			$medicament->setNumIncompatible($data->nombre_incomp);
+			$medicament->setNbParBoite($data->nb_par_boite);
+			$medicament->setNbBoite($data->nb_de_boite);
 
 			$q->closeCursor();
 
@@ -114,15 +114,15 @@ class MedicamentDAO
 			$q = $this->_db->prepare('SELECT * FROM medicament ORDER BY nom');
 			$q->execute();
 
-			while($data=$q->fetch())
+			while($data=$q->fetch(PDO::FETCH_OBJ))
 			{
 				//et on les écrit dans un Patient
 				$medicament = new Medicament();
-				$medicament->setId($data['id']);
-				$medicament->setNom($data['nom']);
-				$medicament->setNumIncompatible($data['nombre_incomp']);
-				$medicament->setNbParBoite($data['nb_par_boite']);
-				$medicament->setNbBoite($data['nb_de_boite']);
+				$medicament->setId($data->id);
+				$medicament->setNom($data->nom);
+				$medicament->setNumIncompatible($data->nombre_incomp);
+				$medicament->setNbParBoite($data->nb_par_boite);
+				$medicament->setNbBoite($data->nb_de_boite);
 
 
 				$array[] = $medicament;
