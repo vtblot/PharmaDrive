@@ -31,7 +31,7 @@ class VisiteDAO
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
 
-			if($data=$q->fetch()) 
+			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
 				$q->closeCursor();
@@ -95,16 +95,16 @@ class VisiteDAO
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
 
-			$data=$q->fetch();
+			$data=$q->fetch(PDO::FETCH_OBJ);
 				
 			//et on les écrit dans un Visite
 			$visite = new Visite();
 			$visite->setId($id);
 				
-			$visite->setMedecin($this->_userDao->select($data['Id_medecin'])); //on va cherche le medecin grace à l'id
-			$visite->setPatient($this->_patientDao->select($data['Id_patient'])); //on va cherche le patient grace à l'id
-			$visite->setDateVisite($data['Date_Visite']);
-			$visite->setCommentaire($data['Commentaire']);
+			$visite->setMedecin($this->_userDao->select($data->Id_medecin)); //on va cherche le medecin grace à l'id
+			$visite->setPatient($this->_patientDao->select($data->Id_patient)); //on va cherche le patient grace à l'id
+			$visite->setDateVisite($data->Date_Visite);
+			$visite->setCommentaire($data->Commentaire);
 			$q->closeCursor();
 
 			return $visite;			
@@ -128,17 +128,17 @@ class VisiteDAO
 			$q->bindValue(':id',$medecin->getId(),PDO::PARAM_INT);
 			$q->execute();
 			
-			while ($data=$q->fetch()) 
+			while ($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//et on les écrit dans une Visite
 				$visite = new Visite();
-				$visite->setId($data['Id']);
+				$visite->setId($data->Id);
 
-				$visite->setMedecin($this->_userDao->select($data['Id_medecin'])); //on va cherche le medecin grace à l'id
-				$visite->setPatient($this->_patientDao->select($data['Id_patient'])); //on va cherche le patient grace à l'id
+				$visite->setMedecin($this->_userDao->select($data->Id_medecin)); //on va cherche le medecin grace à l'id
+				$visite->setPatient($this->_patientDao->select($data->Id_patient)); //on va cherche le patient grace à l'id
 
-				$visite->setDateVisite($data['Date_Visite']);
-				$visite->setCommentaire($data['Commentaire']);
+				$visite->setDateVisite($data->Date_Visite);
+				$visite->setCommentaire($data->Commentaire);
 
 				$array[] = $visite;
 			}
