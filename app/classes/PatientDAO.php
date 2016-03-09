@@ -27,7 +27,7 @@ class PatientDAO
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
 
-			if($data=$q->fetch()) 
+			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
 				$q->closeCursor();
@@ -58,16 +58,19 @@ class PatientDAO
 	public function insert(Patient $patient)
 	{
 		try {
-			$q = $this->_db->prepare('INSERT INTO patient(nom,prenom,num_secu) VALUES (:nom,:prenom,:secu)');
+			$q = $this->_db->prepare('INSERT INTO patient(nom,prenom,num_secu,ville,adresse) VALUES (:nom,:prenom,:secu,:ville,:adresse)');
 			$q->bindValue(':nom',$patient->getNom(),PDO::PARAM_STR);
 			$q->bindValue(':prenom',$patient->getPrenom(),PDO::PARAM_STR);
 			$q->bindValue(':secu',$patient->getNumSecu(),PDO::PARAM_STR);
+			$q->bindValue(':ville',$patient->getVille(),PDO::PARAM_STR);
+			$q->bindValue(':adresse',$patient->getAdresse(),PDO::PARAM_STR);
 			$q->execute();
 
 			$q->closeCursor();
 
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
+			echo $e;
 			return 0;
 		}
 	}
@@ -91,14 +94,55 @@ class PatientDAO
 			$q = $this->_db->prepare('SELECT * FROM patient WHERE id = :id');
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
-			$data=$q->fetch();
+			$data=$q->fetch(PDO::FETCH_OBJ);
 
 			//et on les écrit dans un Patient
 			$patient = new Patient();
 			$patient->setId($id);
-			$patient->setNom($data['nom']);
-			$patient->setPrenom($data['prenom']);
-			$patient->setNumSecu($data['num_secu']);
+			$patient->setNom($data->nom);
+			$patient->setPrenom($data->prenom);
+			$patient->setNumSecu($data->num_secu);
+			$patient->setAdresse($data->adresse);
+			$patient->setVille($data->ville);
+
+			$q->closeCursor();
+
+			return $patient;
+		} catch (Exception $e) {
+			return 0;
+		}
+	}
+
+	/**
+	*	Permet de sélectionner un patient grace a son nom et son prenom
+	*
+	*	@param nom du patient
+	*	@param prenom du patient
+	*	@return Patient si tout c'est bien passé
+	*			0 si il y a eu une erreur
+	*/
+	public function selectByName($id)
+	{
+		if(!$this->exist($id))
+		{
+			//le patient n'existe pas, ce n'est pas la peine de la chercher
+			return 0;
+		}
+		try {
+			//on recupere les données
+			$q = $this->_db->prepare('SELECT * FROM patient WHERE id = :id');
+			$q->bindValue(':id',$id,PDO::PARAM_INT);
+			$q->execute();
+			$data=$q->fetch(PDO::FETCH_OBJ);
+
+			//et on les écrit dans un Patient
+			$patient = new Patient();
+			$patient->setId($id);
+			$patient->setNom($data->nom);
+			$patient->setPrenom($data->prenom);
+			$patient->setNumSecu($data->num_secu);
+			$patient->setAdresse($data->adresse);
+			$patient->setVille($data->ville);
 
 			$q->closeCursor();
 
@@ -122,14 +166,17 @@ class PatientDAO
 			$q = $this->_db->prepare('SELECT * FROM patient ORDER BY nom');
 			$q->execute();
 
-			while($data=$q->fetch())
+			while($data=$q->fetch(PDO::FETCH_OBJ))
 			{
 				//et on les écrit dans un Patient
 				$patient = new Patient();
-				$patient->setId($data['id']);
-				$patient->setNom($data['nom']);
-				$patient->setPrenom($data['prenom']);
-				$patient->setNumSecu($data['num_secu']);
+				$patient->setId($data->id);
+				$patient->setNom($data->nom);
+				$patient->setPrenom($data->prenom);
+				$patient->setNumSecu($data->num_secu);
+				$patient->setAdresse($data->adresse);
+				$patient->setVille($data->ville);
+
 
 				$array[] = $patient;
 			}
@@ -151,11 +198,13 @@ class PatientDAO
 	public function update(Patient $patient)
 	{
 		try {
-			$q = $this->_db->prepare('UPDATE patient SET nom = :nom, prenom = :prenom, num_secu = :num_secu WHERE id = :id');
+			$q = $this->_db->prepare('UPDATE patient SET nom = :nom, prenom = :prenom, num_secu = :num_secu, adresse=:adresse, ville=:ville WHERE id = :id');
 			$q->bindValue(':nom',$patient->getNom(),PDO::PARAM_STR);
 			$q->bindValue(':prenom',$patient->getPrenom(),PDO::PARAM_STR);
 			$q->bindValue(':num_secu',$patient->getNumSecu(),PDO::PARAM_STR);			
 			$q->bindValue(':id',$patient->getId(),PDO::PARAM_STR);
+			$q->bindValue(':ville',$patient->getVille(),PDO::PARAM_STR);
+			$q->bindValue(':adresse',$patient->getAdresse(),PDO::PARAM_STR);
 			$q->execute();
 
 
