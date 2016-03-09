@@ -31,9 +31,9 @@ class UserDAO
 			$q = $this->_db->prepare('SELECT id, pass FROM utilisateur WHERE login = :login');
 			$q->bindValue(':login',$user->getLogin(),PDO::PARAM_STR);
 			$q->execute();
-			$data=$q->fetch();
+			$data=$q->fetch(PDO::FETCH_OBJ);
 
-			if($data['pass']==$user->getPass())
+			if($data->pass==$user->getPass())
 			{
 				$q->closeCursor();
 				return true;
@@ -75,18 +75,19 @@ class UserDAO
 			$q = $this->_db->prepare('SELECT id,fonction FROM utilisateur WHERE login = :login');
 			$q->bindValue(':login',$user->getLogin(),PDO::PARAM_INT);
 			$q->execute();
-			$data=$q->fetch();
+			$data=$q->fetch(PDO::FETCH_OBJ);
 
 			var_dump($data);
 
 			//et on les écrit dans un User
-			$user->setId($data['id']);
-			$user->setFonction($data['fonction']);
+			$user->setId($data->id);
+			$user->setFonction($data->fonction);
 			
 			$q->closeCursor();
 
 			return $user;
 		} catch (Exception $e) {
+			print_r($e);
 			return 0;
 		}
 	}
@@ -101,13 +102,13 @@ class UserDAO
 			$q = $this->_db->prepare('SELECT * FROM utilisateur WHERE id = :id');
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
-			$data=$q->fetch();
+			$data=$q->fetch(PDO::FETCH_OBJ);
 
 			//et on les écrit dans un User
 			$user = new User();
 			$user->setId($id);
-			$user->setLogin($data['Login']);
-			$user->setFonction($data['Fonction']);
+			$user->setLogin($data->Login);
+			$user->setFonction($data->Fonction);
 
 			$q->closeCursor();
 
