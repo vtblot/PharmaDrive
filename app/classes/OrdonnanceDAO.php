@@ -34,7 +34,7 @@ class OrdonnanceDAO
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
 
-			if($data=$q->fetch()) 
+			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
 				$q->closeCursor();
@@ -94,15 +94,15 @@ class OrdonnanceDAO
 			$q = $this->_db->prepare('SELECT * FROM ordonnance WHERE id = :id');
 			$q->bindValue(':id',$id,PDO::PARAM_INT);
 			$q->execute();
-			$data=$q->fetch();
+			$data=$q->fetch(PDO::FETCH_OBJ);
 
 			//et on les écrit dans un Ordonnance
 			$ordonnance = new Ordonnance();
 			$ordonnance->setId($id);
-			$ordonnance->setVisite($this->_visiteDao->select($data['id_visite']));
-			$ordonnance->setMedicament($this->_medicamentDao->select($data['id_medicament']));
-			$ordonnance->setQte($data['qte']);
-			$ordonnance->setCommentaire($data['commentaire']);
+			$ordonnance->setVisite($this->_visiteDao->select($data->id_visite));
+			$ordonnance->setMedicament($this->_medicamentDao->select($data->id_medicament));
+			$ordonnance->setQte($data->qte);
+			$ordonnance->setCommentaire($data->commentaire);
 
 			$q->closeCursor();
 
