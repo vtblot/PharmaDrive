@@ -1,42 +1,28 @@
-<form class="form-horizontal">
+<form class="form-horizontal" method="post">
 <fieldset>
-  <legend>Ordonnance</legend>
-  <legend class="legend2">Patient</legend>
-  <div class="form-group">
-    <label for="select" class="col-lg-2 control-label">Nom</label>
-    <div class="col-lg-10">
-      <select class="form-control" id="select">
-        <option value="vide"></option>
-        <?php foreach ($patients as $patient): ?>
-          <option value="<?=$patient->getId()?>"><?=$patient->getNom().' '.$patient->getPrenom()?></option>
-        <?php endforeach ?>
-      </select>
-    </div>
-  </div>
-    
-  <div class="form-group">
-    <label for="textArea" class="col-lg-2 control-label">Observation particulière</label>
-    <div class="col-lg-10">
-      <textarea class="form-control" rows="3" id="textArea" placeholder="Ici, indiquez des symptômes particuliers ou observations semblant importants à historiser (non obligatoire)"></textarea>
-    </div>
-  </div>
-
   <legend class="legend2">Prescription</legend>
+  <input type="hidden" id="visite" name="visite" value="2" />
   <div class="form-group">
-    <label for="select" class="col-lg-2 control-label">Nom</label>
+    <label for="medicament" class="col-lg-2 control-label">Médicament</label>
     <div class="col-lg-10">
-      <select class="form-control" id="select">
+      <select class="form-control" id="medicament" name="medicament">
         <option value="vide"></option>
         <?php foreach ($medicaments as $medicament): ?>
-          <option value="<?=$patient->getId()?>"><?=$medicament->getNom()?></option>
+          <option value="<?=$medicament->getId()?>"><?php echo $medicament->getNom(); ?></option>
         <?php endforeach ?>
       </select>
     </div>
   </div>
   <div class="form-group">
-    <label for="select" class="col-lg-2 control-label">Médicaments</label>
+    <label for="qte" class="col-lg-2 control-label">Nombre de boite</label>
     <div class="col-lg-10">
-      <textarea class="form-control" rows="2" id="textArea" placeholder="Ici, veuillez indiquez les doses prescrites."></textarea>
+      <input type="number" id="qte" name="qte"/>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="qte" class="col-lg-2 control-label">Commentaire</label>
+    <div class="col-lg-10">
+      <textarea class="form-control" rows="3" id="commentaire" name="commentaire" placeholder=""></textarea>
     </div>
   </div>
 
