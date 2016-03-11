@@ -29,33 +29,37 @@ else
 			<a class="navbar-brand" href="/ppe_pharmadrive_noob/">Pharmadrive</a>
 			<?php if($co)
 			{
-				echo '<form class="navbar-form navbar-left" role="search">';
-        		echo '<div class="form-group">';
-          		echo '<input class="form-control" type="text">';
-        		echo '</div>';
-        		echo '<button type="submit" class="btn btn-primary">Rechercher</button>';
-     			echo '</form>';
+				//si l'utilisateur est connecté
+				echo '<form class="navbar-form navbar-left" role="search">'.PHP_EOL;
+        		echo '	<div class="form-group">'.PHP_EOL;
+          		echo '		<input class="form-control" type="text">'.PHP_EOL;
+        		echo '	</div>'.PHP_EOL;
+        		echo '	<button type="submit" class="btn btn-primary">Rechercher</button>'.PHP_EOL;
+     			echo '</form>'.PHP_EOL;
 			} ?>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav navbar-right">
-					<?php 
-					if($co)
+			<ul class="nav navbar-nav navbar-right">
+				<?php 
+				if($co)
+				{
+					//si l'utilisateur est connecté
+					if($medoc)
 					{
-						if($medoc)
-						{
-							echo '<li><a href="/ppe_pharmadrive_noob/ordonnance">Ordonnances</a></li>';
-							echo '<li><a href="/ppe_pharmadrive_noob/visite">Visites</a></li>';
-						}
-						else if($pharma)
-						{
-							echo '<li><a href="/ppe_pharmadrive_noob/comamnde">Commandes</a></li>';
-						}
-						echo '<li><a href="/ppe_pharmadrive_noob/deconnexion">Déconnexion</a></li>';
+						//si l'utilisateur est un médecin
+						echo '<li><a href="/ppe_pharmadrive_noob/ordonnance">Ordonnances</a></li>'.PHP_EOL;
+						echo '<li><a href="/ppe_pharmadrive_noob/visite">Visites</a></li>'.PHP_EOL;
 					}
-					?>
-				</ul>
+					else if($pharma)
+					{
+						//si l'utilisateur est un pharmacien
+						echo '<li><a href="/ppe_pharmadrive_noob/comamnde">Commandes</a></li>'.PHP_EOL;
+					}
+					echo '<li><a href="/ppe_pharmadrive_noob/deconnexion">Déconnexion</a></li>'.PHP_EOL;
+				}
+				?>
+			</ul>
 		</div>
 	</div>
 </nav>
@@ -63,7 +67,8 @@ else
 <div class="container">
 
 <?php
-
+	
+	//on vérifie si on a un message a afficher
 	if(isset($_SESSION['alert']) && !empty($_SESSION['alert']))
 	{
 		//si la variable exite et n'est pas vide
