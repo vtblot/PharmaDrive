@@ -35,12 +35,10 @@ class UserDAO
 
 			if($data->pass==$user->getPass())
 			{
-				$q->closeCursor();
 				return true;
 			}
 			else
 			{
-				$q->closeCursor();
 				return false;
 			}
 		} catch (Exception $e) {
@@ -54,13 +52,11 @@ class UserDAO
 	public function insert(User $user)
 	{
 		try {
-			$q = $this->_db->prepare('INSERT INTO utilisateur(Login,Pass,Fonction) VALUES (:login,:pass,:fonction)');
+			$q = $this->_db->prepare('INSERT INTO utilisateur(login,pass,fonction) VALUES (:login,:pass,:fonction)');
 			$q->bindValue(':login',$user->getLogin(),PDO::PARAM_STR);
 			$q->bindValue(':pass',$user->getPass(),PDO::PARAM_STR);
 			$q->bindValue(':fonction',$user->getFonction(),PDO::PARAM_STR);
 			$q->execute();
-
-			$q->closeCursor();
 
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
@@ -77,17 +73,12 @@ class UserDAO
 			$q->execute();
 			$data=$q->fetch(PDO::FETCH_OBJ);
 
-			var_dump($data);
-
 			//et on les écrit dans un User
 			$user->setId($data->id);
 			$user->setFonction($data->fonction);
-			
-			$q->closeCursor();
 
 			return $user;
 		} catch (Exception $e) {
-			print_r($e);
 			return 0;
 		}
 	}
@@ -110,8 +101,6 @@ class UserDAO
 			$user->setLogin($data->Login);
 			$user->setFonction($data->Fonction);
 
-			$q->closeCursor();
-
 			return $user;
 		} catch (Exception $e) {
 			return 0;
@@ -124,14 +113,12 @@ class UserDAO
 	public function update(User $user)
 	{
 		try {
-			$q = $this->_db->prepare('UPDATE utilisateur SET Login = :login, Pass = :pass, Fonction = :fonction WHERE id = :id');
+			$q = $this->_db->prepare('UPDATE utilisateur SET login = :login, pass = :pass, fonction = :fonction WHERE id = :id');
 			$q->bindValue(':login',$user->getLogin(),PDO::PARAM_STR);
 			$q->bindValue(':pass',$user->getPass(),PDO::PARAM_STR);
 			$q->bindValue(':fonction',$user->getFonction(),PDO::PARAM_STR);			
 			$q->bindValue(':id',$user->getId(),PDO::PARAM_STR);
 			$q->execute();
-
-			$q->closeCursor();
 
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
@@ -148,8 +135,6 @@ class UserDAO
 			$q = $this->_db->prepare('DELETE FROM utilisateur WHERE id = :id');
 			$q->bindValue(':id',$user->getId(), PDO::PARAM_INT);
 			$q->execute();
-
-			$q->closeCursor();
 			
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
