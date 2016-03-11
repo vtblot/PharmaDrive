@@ -34,14 +34,12 @@ class VisiteDAO
 			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
-				$q->closeCursor();
 
 				return true;
 			}
 			else
 			{
 				//on trouve rien donc la visite n'existe pas
-				$q->closeCursor();
 
 				return false;
 			}			
@@ -67,7 +65,6 @@ class VisiteDAO
 			$q->bindValue(':commentaire',$visite->getCommentaire(),PDO::PARAM_STR);
 			$q->execute();
 
-			$q->closeCursor();
 
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
@@ -105,7 +102,6 @@ class VisiteDAO
 			$visite->setPatient($this->_patientDao->select($data->Id_patient)); //on va cherche le patient grace à l'id
 			$visite->setDateVisite($data->Date_Visite);
 			$visite->setCommentaire($data->Commentaire);
-			$q->closeCursor();
 
 			return $visite;			
 		} catch (Exception $e) {
@@ -143,7 +139,6 @@ class VisiteDAO
 				$array[] = $visite;
 			}
 
-			$q->closeCursor();
 
 			return $array;
 		} catch (Exception $e) {
@@ -168,7 +163,6 @@ class VisiteDAO
 			$q->bindValue(':commentaire',$visite->getCommentaire(),PDO::PARAM_STR);
 			$q->execute();
 
-			$q->closeCursor();
 
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
@@ -190,7 +184,6 @@ class VisiteDAO
 			$q->bindValue(':id',$visite->getId(), PDO::PARAM_INT);
 			$q->execute();
 
-			$q->closeCursor();
 			
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
