@@ -30,15 +30,11 @@ class PatientDAO
 			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
-				$q->closeCursor();
-
 				return true;
 			}
 			else
 			{
 				//on trouve rien donc la visite n'existe pas
-				$q->closeCursor();
-
 				return false;
 			}
 
@@ -65,8 +61,6 @@ class PatientDAO
 			$q->bindValue(':ville',$patient->getVille(),PDO::PARAM_STR);
 			$q->bindValue(':adresse',$patient->getAdresse(),PDO::PARAM_STR);
 			$q->execute();
-
-			$q->closeCursor();
 
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
@@ -105,8 +99,6 @@ class PatientDAO
 			$patient->setAdresse($data->adresse);
 			$patient->setVille($data->ville);
 
-			$q->closeCursor();
-
 			return $patient;
 		} catch (Exception $e) {
 			return 0;
@@ -144,8 +136,6 @@ class PatientDAO
 			$patient->setAdresse($data->adresse);
 			$patient->setVille($data->ville);
 
-			$q->closeCursor();
-
 			return $patient;
 		} catch (Exception $e) {
 			return 0;
@@ -180,7 +170,6 @@ class PatientDAO
 
 				$array[] = $patient;
 			}
-			$q->closeCursor();
 			
 			return $array;
 		} catch (Exception $e) {
@@ -207,9 +196,6 @@ class PatientDAO
 			$q->bindValue(':adresse',$patient->getAdresse(),PDO::PARAM_STR);
 			$q->execute();
 
-
-			$q->closeCursor();
-
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
 			return 0;
@@ -229,9 +215,6 @@ class PatientDAO
 			$q = $this->_db->prepare('DELETE FROM patient WHERE id = :id');
 			$q->bindValue(':id',$patient->getId(), PDO::PARAM_INT);
 			$q->execute();
-
-
-			$q->closeCursor();
 
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
