@@ -22,11 +22,19 @@ class User
 	* Informations générales	*
 	*							*
 	*****************************/
+	private $_nom;
+	private $_prenom;
+
 	private $_fonction;
 
 	
 
-	function __construct() {}
+	function __construct($id = '') {
+		if(!empty($id))
+		{
+			$this->_id = $id;
+		}
+	}
 
 	/************************************************************
 	*															*
@@ -110,6 +118,24 @@ class User
 	{
 		//on hash le pass
 		$this->_pass=md5($var);
+	}
+
+	public function getNom()
+	{
+		return $this->_nom;
+	}
+	public function setNom($nom)
+	{
+		$this->_nom=$nom;
+	}
+
+	public function getPrenom()
+	{
+		return $this->_prenom;
+	}
+	public function setPrenom($prenom)
+	{
+		$this->_prenom=$prenom;
 	}
 
 	public function getFonction()
