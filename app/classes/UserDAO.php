@@ -68,13 +68,15 @@ class UserDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT id,fonction FROM utilisateur WHERE login = :login');
+			$q = $this->_db->prepare('SELECT * FROM utilisateur WHERE login = :login');
 			$q->bindValue(':login',$user->getLogin(),PDO::PARAM_INT);
 			$q->execute();
 			$data=$q->fetch(PDO::FETCH_OBJ);
 
 			//et on les écrit dans un User
 			$user->setId($data->id);
+			$user->setNom($data->nom);
+			$user->setPrenom($data->prenom);
 			$user->setFonction($data->fonction);
 
 			return $user;
@@ -98,8 +100,10 @@ class UserDAO
 			//et on les écrit dans un User
 			$user = new User();
 			$user->setId($id);
-			$user->setLogin($data->Login);
-			$user->setFonction($data->Fonction);
+			$user->setLogin($data->login);			
+			$user->setNom($data->nom);
+			$user->setPrenom($data->prenom);
+			$user->setFonction($data->fonction);
 
 			return $user;
 		} catch (Exception $e) {
@@ -113,9 +117,11 @@ class UserDAO
 	public function update(User $user)
 	{
 		try {
-			$q = $this->_db->prepare('UPDATE utilisateur SET login = :login, pass = :pass, fonction = :fonction WHERE id = :id');
+			$q = $this->_db->prepare('UPDATE utilisateur SET login = :login, pass = :pass, nom = :nom, prenom = :prenom, fonction = :fonction WHERE id = :id');
 			$q->bindValue(':login',$user->getLogin(),PDO::PARAM_STR);
 			$q->bindValue(':pass',$user->getPass(),PDO::PARAM_STR);
+			$q->bindValue(':nom',$user->getNom(),PDO::PARAM_STR);
+			$q->bindValue(':prenom',$user->getPrenom(),PDO::PARAM_STR);
 			$q->bindValue(':fonction',$user->getFonction(),PDO::PARAM_STR);			
 			$q->bindValue(':id',$user->getId(),PDO::PARAM_STR);
 			$q->execute();
