@@ -20,8 +20,11 @@ class Ordonnance
 	*****************************/
 	private $_visite;//obj Visite
 	private $_medicament;//obj Medicament
-	private $_qte;
+	private $_qte;//nom de boite
 	private $_commentaire;
+
+	private $_jour;//jour de création de l'odonance
+	private $_fini;//indique si l'ordonnance a été délivrée
 
 
 	public function getIdMedicament()
@@ -84,6 +87,24 @@ class Ordonnance
 	public function setCommentaire($commentaire)
 	{
 		$this->_commentaire=$commentaire;
+	}
+
+	public function getJour()
+	{
+		return $this->_jour;
+	}
+	public function setJour($jour)
+	{
+		$this->_jour=$jour;
+	}
+
+	public function getFini()
+	{
+		return $this->_fini;
+	}
+	public function setFini($fini)
+	{
+		$this->_fini=$fini;
 	}
 }
 
