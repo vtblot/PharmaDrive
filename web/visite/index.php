@@ -3,7 +3,7 @@
 require_once '../../app/demarage.php';
 
 
-if(!$medoc)
+if(!$medecin)
 {
 	//si il est pas medecin, on le renvoie à l'aceuil
 	redirige('/ppe_pharmadrive_noob');
