@@ -45,13 +45,13 @@ else
 				if($co)
 				{
 					//si l'utilisateur est connecté
-					if($medoc)
+					if($medecin)
 					{
 						//si l'utilisateur est un médecin
 						echo '<li><a href="/ppe_pharmadrive_noob/ordonnance">Ordonnances</a></li>'.PHP_EOL;
 						echo '<li><a href="/ppe_pharmadrive_noob/visite">Visites</a></li>'.PHP_EOL;
 					}
-					else if($pharma)
+					else if($pharmacien)
 					{
 						//si l'utilisateur est un pharmacien
 						echo '<li><a href="/ppe_pharmadrive_noob/comamnde">Commandes</a></li>'.PHP_EOL;
