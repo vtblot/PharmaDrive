@@ -27,9 +27,8 @@ class VisiteDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT * FROM visite WHERE id = :id');
-			$q->bindValue(':id',$id,PDO::PARAM_INT);
-			$q->execute();
+			$q = $this->_db->prepare('SELECT * FROM visite WHERE id = ?');
+			$q->execute(array($id));
 
 			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
@@ -58,7 +57,7 @@ class VisiteDAO
 	public function insert(Visite $visite)
 	{
 		try {
-			$q = $this->_db->prepare('INSERT INTO visite(Id_medecin,Id_patient,Date_Visite,Commentaire) VALUES (:medecin,:patient,:dateVisite,:commentaire)');
+			$q = $this->_db->prepare('INSERT INTO visite(id_medecin,id_patient,date_visite,commentaire) VALUES (:medecin,:patient,:dateVisite,:commentaire)');
 			$q->bindValue(':medecin',$visite->getIdMedecin(),PDO::PARAM_STR);
 			$q->bindValue(':patient',$visite->getIdPatient(),PDO::PARAM_STR);
 			$q->bindValue(':dateVisite',$visite->getDateVisite(),PDO::PARAM_STR);
@@ -84,13 +83,12 @@ class VisiteDAO
 		if(!$this->exist($id))
 		{
 			//la visite n'existe pas, ce n'est pas la peine de la chercher
-			return 0;
+			return -1;
 		}
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT * FROM visite WHERE id = :id');
-			$q->bindValue(':id',$id,PDO::PARAM_INT);
-			$q->execute();
+			$q = $this->_db->prepare('SELECT * FROM visite WHERE id = ?');
+			$q->execute(array($id));
 
 			$data=$q->fetch(PDO::FETCH_OBJ);
 				
@@ -98,10 +96,10 @@ class VisiteDAO
 			$visite = new Visite();
 			$visite->setId($id);
 				
-			$visite->setMedecin($this->_userDao->select($data->Id_medecin)); //on va cherche le medecin grace à l'id
-			$visite->setPatient($this->_patientDao->select($data->Id_patient)); //on va cherche le patient grace à l'id
-			$visite->setDateVisite($data->Date_Visite);
-			$visite->setCommentaire($data->Commentaire);
+			$visite->setMedecin($this->_userDao->select($data->id_medecin)); //on va cherche le medecin grace à l'id
+			$visite->setPatient($this->_patientDao->select($data->id_patient)); //on va cherche le patient grace à l'id
+			$visite->setDateVisite($data->date_visite);
+			$visite->setCommentaire($data->commentaire);
 
 			return $visite;			
 		} catch (Exception $e) {
@@ -120,21 +118,20 @@ class VisiteDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT * FROM visite WHERE Id_medecin = :id');
-			$q->bindValue(':id',$medecin->getId(),PDO::PARAM_INT);
-			$q->execute();
+			$q = $this->_db->prepare('SELECT * FROM visite WHERE id_medecin = ?');
+			$q->execute(array($medecin->getId()));
 			
 			while ($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//et on les écrit dans une Visite
 				$visite = new Visite();
-				$visite->setId($data->Id);
+				$visite->setId($data->id);
 
-				$visite->setMedecin($this->_userDao->select($data->Id_medecin)); //on va cherche le medecin grace à l'id
-				$visite->setPatient($this->_patientDao->select($data->Id_patient)); //on va cherche le patient grace à l'id
+				$visite->setMedecin($this->_userDao->select($data->id_medecin)); //on va cherche le medecin grace à l'id
+				$visite->setPatient($this->_patientDao->select($data->id_patient)); //on va cherche le patient grace à l'id
 
-				$visite->setDateVisite($data->Date_Visite);
-				$visite->setCommentaire($data->Commentaire);
+				$visite->setDateVisite($data->date_visite);
+				$visite->setCommentaire($data->commentaire);
 
 				$array[] = $visite;
 			}
@@ -157,7 +154,7 @@ class VisiteDAO
 	{
 		try {
 			//on update pas les cle etrangere
-			$q = $this->_db->prepare('UPDATE visite SET Date_Visite = :dateVisite, Commentaire = :commentaire WHERE id = :id');
+			$q = $this->_db->prepare('UPDATE visite SET date_visite = :dateVisite, commentaire = :commentaire WHERE id = :id');
 			$q->bindValue(':id',$visite->getId(),PDO::PARAM_INT);
 			$q->bindValue(':dateVisite',$visite->getDateVisite(),PDO::PARAM_STR);
 			$q->bindValue(':commentaire',$visite->getCommentaire(),PDO::PARAM_STR);
@@ -180,9 +177,8 @@ class VisiteDAO
 	public function delete(Visite $visite)
 	{
 		try {
-			$q = $this->_db->prepare('DELETE FROM visite WHERE id = :id');
-			$q->bindValue(':id',$visite->getId(), PDO::PARAM_INT);
-			$q->execute();
+			$q = $this->_db->prepare('DELETE FROM visite WHERE id = ?');
+			$q->execute(array($id));
 
 			
 			return 1;//tout c'est bien passé
