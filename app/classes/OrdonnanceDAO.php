@@ -30,21 +30,18 @@ class OrdonnanceDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT * FROM ordonnance WHERE id = :id');
-			$q->bindValue(':id',$id,PDO::PARAM_INT);
-			$q->execute();
+			$q = $this->_db->prepare('SELECT * FROM ordonnance WHERE id = ?');
+			$q->execute(array($id));
 
 			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
-				$q->closeCursor();
 
 				return true;
 			}
 			else
 			{
 				//on trouve rien donc la visite n'existe pas
-				$q->closeCursor();
 
 				return false;
 			}
@@ -72,8 +69,6 @@ class OrdonnanceDAO
 			$q->bindValue(':commentaire',$ordonnance->getCommentaire(),PDO::PARAM_STR);
 			$q->execute();
 
-			$q->closeCursor();
-
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
 			return 0;
@@ -91,9 +86,8 @@ class OrdonnanceDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT * FROM ordonnance WHERE id = :id');
-			$q->bindValue(':id',$id,PDO::PARAM_INT);
-			$q->execute();
+			$q = $this->_db->prepare('SELECT * FROM ordonnance WHERE id = ?');
+			$q->execute(array($id););
 			$data=$q->fetch(PDO::FETCH_OBJ);
 
 			//et on les écrit dans un Ordonnance
@@ -104,9 +98,41 @@ class OrdonnanceDAO
 			$ordonnance->setQte($data->qte);
 			$ordonnance->setCommentaire($data->commentaire);
 
-			$q->closeCursor();
-
 			return $ordonnance;
+		} catch (Exception $e) {
+			return 0;
+		}
+	}
+
+	/**
+	*	Selectionne toutes les ordonnances
+	*
+	*	@param 
+	*	@return Array des ordonnaces
+	*			0 si il y a eu un problème
+	**/
+	public function selectAll()
+	{
+		try {
+			//on recupere les données
+			$q = $this->_db->prepare('SELECT * FROM ordonnance');
+			$q->execute();
+
+			while($data=$q->fetch(PDO::FETCH_OBJ))
+			{
+				//et on les écrit dans une ordonnance
+				$ordonnance = new Ordonnance();
+				$ordonnance->setId($data->id);
+				$ordonnance->setVisite($this->_visiteDao->select($data->id_visite));
+				$ordonnance->setMedicament($this->_medicamentDao->select($data->id_medicament));
+				$ordonnance->setQte($data->qte);
+				$ordonnance->setCommentaire($data->commentaire);
+
+
+				$array[] = $ordonnance;
+			}
+			
+			return $array;
 		} catch (Exception $e) {
 			return 0;
 		}
@@ -130,8 +156,6 @@ class OrdonnanceDAO
 			$q->bindValue(':commentaire',$ordonnance->getCommentaire(),PDO::PARAM_STR);
 			$q->execute();
 
-			$q->closeCursor();
-
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
 			return 0;
@@ -148,11 +172,8 @@ class OrdonnanceDAO
 	public function delete(Ordonnance $ordonnance)
 	{
 		try {
-			$q = $this->_db->prepare('DELETE FROM ordonnance WHERE id = :id');
-			$q->bindValue(':id',$ordonnance->getId(), PDO::PARAM_INT);
-			$q->execute();
-
-			$q->closeCursor();
+			$q = $this->_db->prepare('DELETE FROM ordonnance WHERE id = ?');
+			$q->execute(array($ordonnance->getId()));
 			
 			return 1;//tout c'est bien passé
 		} catch (Exception $e) {
