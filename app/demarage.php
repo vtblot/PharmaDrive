@@ -13,11 +13,13 @@ session_start();
 //on se connecte à la base de données
 $pdo = new DataBase('pharmadrive');
 
+//on créer les dao
 $userDao = new UserDAO($pdo);
 $patientDao = new PatientDAO($pdo);
 $visiteDao = new VisiteDAO($pdo);
 $medicamentDao = new MedicamentDAO($pdo);
 $ordonnanceDao = new OrdonnanceDAO($pdo);
+
 
 if(isset($_SESSION))
 	var_dump($_SESSION);
@@ -26,8 +28,8 @@ if(isset($_SESSION))
 
 //On identifie l'utilisateur
 $co = false;
-$medoc = false;
-$pharma = false;
+$medecin = false;
+$pharmacien = false;
 
 
 if(isset($_SESSION['user']) && !empty($_SESSION['user']))
@@ -40,11 +42,11 @@ if(isset($_SESSION['user']) && !empty($_SESSION['user']))
 
 		if($_SESSION['user']->isMedecin())
 		{
-			$medoc = true;
+			$medecin = true;
 		}
 		else if($_SESSION['user']->isPharmacien())
 		{
-			$pharma = true;
+			$pharmacien = true;
 		}
 	}
 
