@@ -5,7 +5,7 @@ require_once '../../app/demarage.php';
 include_once '../nav.php';
 
 
-if(!$medoc)
+if(!$medecin)
 {
   	//si il est pas medecin, on le renvoie à l'aceuil
   	redirige('/ppe_pharmadrive_noob');
@@ -42,9 +42,16 @@ if(isset($_GET['lien']))
 			break;
 		case 'nouveau':
 			//on veut créer un patient
-
-		
-			include_once 'nouveau.php';
+			if(isset($_POST['nom']))
+			{
+				//si on envoie le formulaire
+				include_once '../../app/newPatient.php';
+			}
+			else
+			{
+				//sinon on affiche le fomulaire
+				require_once 'nouveau.php';
+			}
 			break;
 		default:
 			//en cas de lien invalide, on redirige vers l'index
