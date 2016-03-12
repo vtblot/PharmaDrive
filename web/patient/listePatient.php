@@ -10,13 +10,14 @@
   <tbody>
 
   	<?php foreach ($patients as $patient): ?>
-  	<tr class="lien info" onclick="document.location='/ppe_pharmadrive_noob/patient/<?=$patient->getNom()?>_<?=$patient->getPrenom()?>'">
-      	<td><?=$i++?></td>
-      	<td><a href="/ppe_pharmadrive_noob/patient/<?=$patient->getNom()?>_<?=$patient->getPrenom()?>"><?=$patient->getNom()?></a></td>
-      	<td><a href="/ppe_pharmadrive_noob/patient/<?=$patient->getNom()?>_<?=$patient->getPrenom()?>"><?=$patient->getPrenom()?></a></td>
-      	<td><a href="/ppe_pharmadrive_noob/patient/<?=$patient->getNom()?>_<?=$patient->getPrenom()?>"><?=$patient->getNumSecu()?></a></td>
+  	<tr class="lien info" onclick="document.location='/ppe_pharmadrive_noob/patient/<?php echo $patient->getNom(); ?>_<?php echo $patient->getPrenom(); ?>'">
+      	<td><?php echo $i++; ?></td>
+        <!-- On met des liens si jamais l'utilisateur a désactiver le javascript -->
+      	<td><a href="/ppe_pharmadrive_noob/patient/<?php echo $patient->getNom(); ?>_<?php echo $patient->getPrenom(); ?>"><?php echo $patient->getNom(); ?></a></td>
+      	<td><a href="/ppe_pharmadrive_noob/patient/<?php echo $patient->getNom(); ?>_<?php echo $patient->getPrenom(); ?>"><?php echo $patient->getPrenom(); ?></a></td>
+      	<td><a href="/ppe_pharmadrive_noob/patient/<?php echo $patient->getNom(); ?>_<?php echo $patient->getPrenom(); ?>"><?php echo $patient->getNumSecu(); ?></a></td>
     </tr>
-  	<?php endforeach ?>
+  	<?php endforeach?>
     
    
   </tbody>
