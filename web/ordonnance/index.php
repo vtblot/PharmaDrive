@@ -5,14 +5,11 @@ require_once '../../app/demarage.php';
 require_once '../nav.php';
 
 
-if(!$medoc)
+if(!$medecin && !$pharmacien)
 {
   	//si il est pas medecin, on le renvoie à l'aceuil
   	redirige('/ppe_pharmadrive_noob');
 }
-
-
-var_dump($_GET);
 
 if(isset($_GET['lien']))
 {
@@ -47,14 +44,17 @@ if(isset($_GET['lien']))
 else 
 {
 	$i = 1;
+	if($medecin)
+	{
+		$ordonnances = $ordonnanceDao->selectForDoctor($_SESSION['user']);
+	}
+	else
+	{
+		//c'est le pharmacien
+		$ordonnances = $ordonnanceDao->selectAll();
+	}
 
-
-	/*
-	SELECT ordonnance.id,ordonnance.id_visite,ordonnance.id_medicament,ordonnance.qte,ordonnance.commentaire,visite.id,id_medecin FROM `ordonnance`,visite WHERE ordonnance.id_visite = visite.id AND visite.id_medecin = 2
-	*/
-
-	//$ordonnance = $ordonnanceDao->selectForDoctor($_SESSION['user']);
-  	//require_once 'listeOrdo.php';
+	require_once 'listeOrdo.php';
 }
 
 
