@@ -16,6 +16,22 @@ if(isset($_GET['lien']))
 	switch ($_GET['lien']) {
 		case 'detail':
 			//on veut voir le detail d'une ordonnance
+			if(!isset($_GET['id']) && !is_int($_GET['id']))
+			{
+			  	//si on a un id invalide d'ordonnance'
+
+				//on créer un message d'erreur et on redirige
+				$_SESSION['alert'] = new Alert('erreur','Ordonnance invalide');
+				redirige('/ppe_pharmadrive_noob/ordonnance');
+			}
+			else if(!$ordonnanceDao->exist($_GET['id']))
+			{
+				//l'ordonnance' n'est pas dans la bdd
+
+				$_SESSION['alert'] = new Alert('erreur','Ordonnance introuvable');
+				redirige('/ppe_pharmadrive_noob/ordonnance');
+			}
+			var_dump($ordonnanceDao->select($_GET['id']));
 			
 			break;
 		case 'nouveau':
@@ -36,8 +52,10 @@ if(isset($_GET['lien']))
 		default:
 			//en cas de lien invalide, on redirige vers l'index
 
-			$_SESSION['alert'] = new Alert('erreur','Cette page n\'existe pas');
-			redirige('/ppe_pharmadrive_noob/ordonnance');
+			var_dump($_GET);
+
+			// $_SESSION['alert'] = new Alert('erreur','Cette page n\'existe pas');
+			// redirige('/ppe_pharmadrive_noob/ordonnance');
 			break;
 	}
 }
