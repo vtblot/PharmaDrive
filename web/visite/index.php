@@ -34,8 +34,10 @@ if(isset($_GET['lien']))
 				$_SESSION['alert'] = new Alert('erreur','Visite introuvable');
 				redirige('/ppe_pharmadrive_noob/visite');
 			}
+			$visite = $visiteDao->select($_GET['id']);
+			var_dump($visite);
 
-			var_dump($visiteDao->select($_GET['id']));
+			include_once 'detail.php';
 			break;
 		case 'nouveau':
 			//on veut créer une nouvelle visite
