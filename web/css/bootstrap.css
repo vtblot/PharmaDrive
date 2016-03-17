@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700");
+/*@import url("https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700");
 /*!
  * bootswatch v3.3.6
  * Homepage: http://bootswatch.com
@@ -1293,7 +1293,15 @@ h6,
 }
 p {
   margin: 0 0 10px;
+  font-weight: bold;
 }
+
+p.izi {
+  margin: 10px 10px 10px;
+  font-size: 16px;
+}
+
+
 .lead {
   margin-bottom: 20px;
   font-size: 16px;
@@ -4975,8 +4983,6 @@ a.badge:focus {
 }
 .jumbotron p {
   margin-bottom: 15px;
-  font-size: 21px;
-  font-weight: 200;
 }
 .jumbotron > hr {
   border-top-color: #d5d5d5;
@@ -5744,22 +5750,23 @@ button.list-group-item-danger.active:focus {
   border-bottom-color: #d6e9c6;
 }
 .panel-info {
-  border-color: #bce8f1;
+  border-color: #3a87ad;
 }
 .panel-info > .panel-heading {
-  color: #3a87ad;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+  text-align: center;
+  color: #FFF;
+  background-color: #3a87ad;
+  border-color: #3a87ad;
 }
 .panel-info > .panel-heading + .panel-collapse > .panel-body {
-  border-top-color: #bce8f1;
+  border-top-color: #3a87ad;
 }
 .panel-info > .panel-heading .badge {
   color: #d9edf7;
   background-color: #3a87ad;
 }
 .panel-info > .panel-footer + .panel-collapse > .panel-body {
-  border-bottom-color: #bce8f1;
+  border-bottom-color: #3a87ad;
 }
 .panel-warning {
   border-color: #fbeed5;
