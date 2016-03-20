@@ -35,7 +35,7 @@ if(isset($_GET['lien']))
 				redirige('/ppe_pharmadrive_noob/visite');
 			}
 			$visite = $visiteDao->select($_GET['id']);
-			var_dump($visite);
+			$ordonnances = $ordonnanceDao->selectForVisit($visite);
 
 			include_once 'detail.php';
 			break;
