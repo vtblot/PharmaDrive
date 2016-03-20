@@ -31,7 +31,9 @@ if(isset($_GET['lien']))
 				$_SESSION['alert'] = new Alert('erreur','Ordonnance introuvable');
 				redirige('/ppe_pharmadrive_noob/ordonnance');
 			}
-			var_dump($ordonnanceDao->select($_GET['id']));
+			$ordonnance = $ordonnanceDao->select($_GET['id']);
+
+			require_once 'detail.php';
 			
 			break;
 		case 'nouveau':
