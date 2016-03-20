@@ -17,7 +17,6 @@
 									echo "Prénom : ".$visite->getMedecin()->getPrenom()." <br/>"."<br/>";
 									echo "Nom : ".$visite->getMedecin()->getNom(); ?></p>
 									<small><?php echo "Fonction : ".ucfirst($visite->getMedecin()->getFonction()); ?></small>
-
 								</blockquote>
 							</div>
 						</div>
@@ -46,13 +45,21 @@
 					<h3 class="panel-title">Récapitulatif</h3>
 
 				</div>
-				<strong><p class="izi">
+				<div class="panel-body">
+					<strong>
 					<?php 
-					echo "Observations - ";
+					echo "Observations : ";
 
 					echo $visite->getCommentaire(); 
 					?>
-				</p></strong>
+					</strong>
+				</div>
+				<div class="panel-body">
+					<strong>Ordonnances :</strong>
+					<?php
+						include_once '../ordonnance/listeOrdo.php';
+					?>
+				</div>
 			</div>
 
 
