@@ -22,6 +22,8 @@ else
 {
 	//les identifiants sont incorrect
 	$_SESSION['alert'] = new Alert('danger','Erreur : le couple utilisateur/mot de passe incorect');
+
+	redirige('/ppe_pharmadrive');
 }
 
 
