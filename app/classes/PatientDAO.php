@@ -145,7 +145,6 @@ class PatientDAO
 	/**
 	*	Selectionne tous les patients
 	*
-	*	@param 
 	*	@return Array des patients
 	*			0 si il y a eu un problème
 	**/
@@ -153,7 +152,7 @@ class PatientDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT * FROM patient ORDER BY nom');
+			$q = $this->_db->prepare('SELECT * FROM patient ORDER BY nom,prenom');
 			$q->execute();
 
 			while($data=$q->fetch(PDO::FETCH_OBJ))
