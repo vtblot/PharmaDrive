@@ -5,8 +5,8 @@ require_once '../../app/demarage.php';
 
 if(!$medecin)
 {
-	//si il est pas medecin, on le renvoie à l'aceuil
-	redirige('/ppe_pharmadrive_noob');
+	//si il est pas medecin, on le renvoie à l'acceuil
+	redirige('/ppe_pharmadrive');
 }
 
 
@@ -25,14 +25,14 @@ if(isset($_GET['lien']))
 
 				//on créer un message d'erreur et on redirige
 				$_SESSION['alert'] = new Alert('erreur','Visite invalide');
-				redirige('/ppe_pharmadrive_noob/visite');
+				redirige('/ppe_pharmadrive/visite');
 			}
 			else if(!$visiteDao->exist($_GET['id']))
 			{
 				//la visite n'est pas dans la bdd
 
 				$_SESSION['alert'] = new Alert('erreur','Visite introuvable');
-				redirige('/ppe_pharmadrive_noob/visite');
+				redirige('/ppe_pharmadrive/visite');
 			}
 			$visite = $visiteDao->select($_GET['id']);
 			$ordonnances = $ordonnanceDao->selectForVisit($visite);
@@ -58,7 +58,7 @@ if(isset($_GET['lien']))
 			//en cas de lien invalide, on redirige vers l'index
 
 			$_SESSION['alert'] = new Alert('erreur','Cette page n\'existe pas');
-			redirige('/ppe_pharmadrive_noob/visite');
+			redirige('/ppe_pharmadrive/visite');
 			break;
 	}
 }
@@ -68,6 +68,7 @@ else
 
 	//on recupere les visites du docteur
 	$visites = $visiteDao->selectForDoctor($_SESSION['user']);
+	echo '<a class="btn btn-primary float" href="visite/nouveau">Ajouter une visite</a>';
   	include_once 'listeVisite.php';
 }
 
