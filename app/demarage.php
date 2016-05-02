@@ -1,5 +1,7 @@
 <?php 
 
+$debug = 1;
+
 //on charge le fichier contenant les fonctions
 require_once 'fonctions.php';
 
@@ -21,7 +23,7 @@ $medicamentDao = new MedicamentDAO($pdo);
 $ordonnanceDao = new OrdonnanceDAO($pdo);
 
 
-if(isset($_SESSION))
+if(isset($_SESSION) && $debug)
 	var_dump($_SESSION);
 
 
