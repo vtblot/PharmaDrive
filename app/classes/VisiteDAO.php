@@ -33,13 +33,11 @@ class VisiteDAO
 			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
-
 				return true;
 			}
 			else
 			{
 				//on trouve rien donc la visite n'existe pas
-
 				return false;
 			}			
 		} catch (Exception $e) {
@@ -138,6 +136,43 @@ class VisiteDAO
 
 
 			return $array;
+		} catch (Exception $e) {
+			return 0;
+		}
+	}
+
+	/**
+	*	Selectionne toutes les visites d'un patient
+	*
+	*	@param $patient Patient
+	*	@return Array des visites
+	*			0 si il y a eu un problème
+	**/
+	public function selectForPatient(Patient $patient)
+	{
+		try {
+			//on recupere les données
+			$q = $this->_db->prepare('SELECT * FROM visite WHERE id_patient = ?');
+			$q->execute(array($patient->getId()));
+			$visites = array();
+
+			while ($data=$q->fetch(PDO::FETCH_OBJ)) 
+			{
+				//et on les écrit dans une Visite
+				$visite = new Visite();
+				$visite->setId($data->id);
+
+				$visite->setMedecin($this->_userDao->select($data->id_medecin)); //on va cherche le medecin grace à l'id
+				$visite->setPatient($this->_patientDao->select($data->id_patient)); //on va cherche le patient grace à l'id
+
+				$visite->setDateVisite($data->date_visite);
+				$visite->setCommentaire($data->commentaire);
+
+				$visites[] = $visite;
+			}
+
+
+			return $visites;
 		} catch (Exception $e) {
 			return 0;
 		}
