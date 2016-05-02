@@ -11,13 +11,13 @@
 	{
 		//patient invalide
 		$_SESSION['alert'] = new Alert('erreur','Visite invalide');
-		redirige('/ppe_pharmadrive_noob/ordonnance/nouveau');
+		redirige('/ppe_pharmadrive/ordonnance/nouveau');
 	}
 	else if($idMedicament === 'vide')
 	{
 		//medicament invalide
 		$_SESSION['alert'] = new Alert('erreur','Medicament invalide');
-		redirige('/ppe_pharmadrive_noob/ordonnance/nouveau');
+		redirige('/ppe_pharmadrive/ordonnance/nouveau');
 	}
 
 	//on créer une nouvelle ordonnance et on la rempli
@@ -32,11 +32,11 @@
 	{
 		//l'insertion dans la bdd s'est bien passé
 		$_SESSION['alert'] = new Alert('success','L\'ordonnance a été ajoutée');
-		redirige('/ppe_pharmadrive_noob/visite/'.$idVisite);
+		redirige('/ppe_pharmadrive/visite/'.$idVisite);
 	}
 	else
 	{
 		$_SESSION['alert'] = new Alert('danger','Une erreur est survenue');
-		redirige('/ppe_pharmadrive_noob/ordonnance/nouveau');
+		redirige('/ppe_pharmadrive/ordonnance/nouveau');
 	}
  ?>
