@@ -1,5 +1,17 @@
 
 <div class="jumbotron">
+	<?php
+		if($pharmacien && !$ordonnance->estFinie())
+		{
+			?>
+			<div class="btn-group-vertical" style="">
+				<a class="btn btn-success" href="delivre/<?php echo $ordonnance->getId(); ?>">Ordonnance délivrée</a>
+			</div>
+			<?php
+		}
+	?>
+
+
 	<form class="form-horizontal">
 
 		<fieldset>
@@ -32,7 +44,9 @@
 									<p><?php 
 									echo "Prénom : ".$ordonnance->getVisite()->getPatient()->getPrenom()." <br/>"."<br/>";
 									echo "Nom : ".$ordonnance->getVisite()->getPatient()->getNom(); ?></p>
-									<small><?php echo "NumSécu : ".$ordonnance->getVisite()->getPatient()->getNumSecu(); ?></small>
+									<small><?php echo 'Adresse : ',$ordonnance->getVisite()->getPatient()->getAdresse(); ?></small>
+									<small><?php echo 'Ville : ',$ordonnance->getVisite()->getPatient()->getVille(); ?></small>
+									<small><?php echo 'Numéro de sécurité sociale : ',$ordonnance->getVisite()->getPatient()->getNumSecu(); ?></small>
 								</blockquote>
 							</div>
 						</div>
