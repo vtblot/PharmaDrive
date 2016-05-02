@@ -6,80 +6,118 @@ require_once '../app/demarage.php';
 if(isset($_GET['lien']))
 {
 	switch ($_GET['lien']) {
-		case 'deconnexion':
-			if(!$co)
-			{
-				//si il est pas co, on le renvoie
+	case 'deconnexion':
+		//page pour se déconnecté
+		if(!$co)
+		{
+			//si l'utilisateur n' est pas connecté, on le renvoie à la page d'acceuil
 
-				$_SESSION['alert'] = new Alert('erreur','Vous n\'êtes pas connecté');
-				redirige('/ppe_pharmadrive_noob');
-			}
-			//on inclu la page de deconnexion
-			include_once '../app/deconnexion.php';
-			//et on redirige
-			redirige('/ppe_pharmadrive_noob');
-			break;
-		case 'connexion':
-			if($co)
-			{
-				//si il est co, on le renvoie
+			$_SESSION['alert'] = new Alert('erreur','Vous n\'êtes pas connecté');
+			redirige('/ppe_pharmadrive');
+		}
+		//on inclu la page de deconnexion
+		require_once '../app/deconnexion.php';
+		//et on redirige
+		redirige('/ppe_pharmadrive');
+		break;
 
-				$_SESSION['alert'] = new Alert('erreur','Vous êtes déjà connecté');
-				redirige('/ppe_pharmadrive_noob');
-			}
-			//on vérifie la présence des chaines de caractère
-			if (isset($_SESSION['login']) && empty($_SESSION['login']))
+	case 'connexion':
+		//page pour se connecté
+		if($co)
+		{
+			//si il est déja connecté, on le renvoie
+
+			$_SESSION['alert'] = new Alert('erreur','Vous êtes déjà connecté');
+			redirige('/ppe_pharmadrive');
+		}
+
+		//on vérifie la présence des chaines de caractère
+		if(isset($_SESSION['login']) && empty($_SESSION['login']))
+		{
+			//le champ login est vide
+			$_SESSION['alert'] = new Alert('danger','Erreur : le nom d\'utilisateur n\'a pas été renseigné');
+		}
+		else if(isset($_SESSION['pass']) && empty($_SESSION['pass']))
+		{
+			//le champ password est vide
+			$_SESSION['alert'] = new Alert('danger','Erreur : le mot de passe n\'a pas été renseigné');
+		}
+		else
+		{
+			//tout est ok
+			$form = array('login' => $_POST['login'], 'pass' => $_POST['pass']);
+			require_once '../app/connexion.php';
+
+			if($debug)
 			{
-				$_SESSION['alert'] = new Alert('danger','Erreur : le nom d\'utilisateur n\'a pas été renseillé');
+				var_dump($_SESSION);
 			}
-			else if (isset($_SESSION['pass']) && empty($_SESSION['pass']))
+
+			if($_SESSION['user']->isMedecin())
 			{
-				$_SESSION['alert'] = new Alert('danger','Erreur : le mot de passe n\'a pas été renseillé');
+				//si l'utilisateur est un médecin
+				redirige('visite');
 			}
 			else
 			{
-				//tout est ok
-				$form = array('login' => $_POST['login'], 'pass' => $_POST['pass']);
-				include_once '../app/connexion.php';
+				//sinon c'est un pharmacien
+				redirige('ordonnance');
 			}
-			redirige('/ppe_pharmadrive_noob');
-			break;
-		default:
-			//en cas de lien invalide, on redirige vers l'index
+		}
+		
+		break;
 
+	default:
+		//en cas de lien invalide, on redirige vers l'index
+		if($debug)
+		{
+			var_dump($_GET);
+		}
+		else
+		{
 			$_SESSION['alert'] = new Alert('erreur','Cette page n\'existe pas');
-			redirige('/ppe_pharmadrive_noob');
-			break;
+			redirige('/ppe_pharmadrive');
+		}
+		
+		break;
 	}
 }
 else
 {
-	include_once 'nav.php';
+	//on inclu le header
+	require_once 'nav.php';
 			
-	if($co)
+	if($medecin)
 	{
-		echo '<ul>'.PHP_EOL;
-		echo '	<li>Patients : reste a faire la page du patient</li>'.PHP_EOL;
-		echo '	<li>Visites : reste les pages uniques</li>'.PHP_EOL;
-		echo '</ul>'.PHP_EOL;
+		//si l'utilisateur est un médecin
+		redirige('visite');
+	}
+	else if($pharmacien)
+	{
+		//si c'est un pharmacien
+		redirige('ordonnance');
 	}
 	else
 	{
+		/*
+			Plus besion grace au Form
+		
 		echo '<form class="form-signin" method="post" action="connexion">'.PHP_EOL;
-		echo '	<fieldset>'.PHP_EOL;
 		echo '	<h2 class="form-signin-heading">Connexion</h2>'.PHP_EOL;
-		echo '	<label for="login" class="sr-only">Login</label>'.PHP_EOL;
-		echo '	<input type="text" id="mail" name="login" class="form-control" placeholder="Nom d\'utilisateur" autofocus>'.PHP_EOL;
-		echo '	<label for="pass" class="sr-only">Mot de passe</label>'.PHP_EOL;
-		echo '	<input type="password" id="pass" name="pass" class="form-control" placeholder="Mot de passe" >'.PHP_EOL;
-		echo '	</fieldset>'.PHP_EOL;
-		echo '	<input class="btn btn-lg btn-primary btn-block" type="submit" value="Connexion"/>'.PHP_EOL;
+		echo '	<input id="login" name="login" class="form-control" type="text" value="" placeholder="Nom d'utilisateur" require  autofocus />'.PHP_EOL;
+		echo '	<input id="pass" name="pass" class="form-control" type="password" value="" placeholder="Mot de passe" require />'.PHP_EOL;
+		echo '	<div class="form-group"><input id="submit" name="submit" class="btn btn-lg btn-primary btn-block" type="submit" value="Connexion" placeholder=""/>'.PHP_EOL;
+		echo '	</div>'.PHP_EOL;
 		echo '</form>'.PHP_EOL;
-	}
+		//*/
 
+		//Créer le fomulaire de connexion automatiquement
+		$form = new FormSignin('connexion');
+		$form->write();
+	}
 
 }
 
-
-include_once 'footer.php';
+//on inclue le footer
+require_once 'footer.php';
 ?>
