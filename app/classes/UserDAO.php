@@ -13,8 +13,9 @@ class UserDAO
 		//parent::__construct($db);
 		$this->_db = $db;
 	}
+	
 	/**
-	*	@return true ou false si la fonction n'as pas rencontreée de preobleme
+	*	@return true ou false si la fonction n'as pas rencontreée de probleme
 	*			0 si la demande à la base de donnée à echouée
 	*			-1 si le login est vide
 	*			-2 si le pass
@@ -46,9 +47,6 @@ class UserDAO
 		}
 	}
 	
-	/**
-	*
-	**/
 	public function insert(User $user)
 	{
 		try {
@@ -85,9 +83,6 @@ class UserDAO
 		}
 	}
 
-	/**
-	*
-	**/
 	public function select($id)
 	{
 		try {
@@ -111,9 +106,6 @@ class UserDAO
 		}
 	}
 	
-	/**
-	*
-	**/
 	public function update(User $user)
 	{
 		try {
@@ -132,9 +124,6 @@ class UserDAO
 		}
 	}
 	
-	/**
-	*
-	**/
 	public function delete(User $user)
 	{
 		try {
