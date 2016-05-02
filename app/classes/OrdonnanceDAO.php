@@ -1,9 +1,5 @@
 <?php 
 
-
-
-
-
 class OrdonnanceDAO
 {
 
@@ -36,13 +32,11 @@ class OrdonnanceDAO
 			if($data=$q->fetch(PDO::FETCH_OBJ)) 
 			{
 				//on trouve quelque chose donc la visite existe
-
 				return true;
 			}
 			else
 			{
 				//on trouve rien donc la visite n'existe pas
-
 				return false;
 			}
 
@@ -62,7 +56,7 @@ class OrdonnanceDAO
 	public function insert(Ordonnance $ordonnance)
 	{
 		try {
-			$q = $this->_db->prepare('INSERT INTO ordonnance(id_visite,id_medicament,qte,commentaire,jour,fini) VALUES (:idVisite,:idMedicament,:qte,:commentaire,NOW(),0)');
+			$q = $this->_db->prepare('INSERT INTO ordonnance(id_visite,id_medicament,qte,commentaire,jour) VALUES (:idVisite,:idMedicament,:qte,:commentaire,NOW())');
 			$q->bindValue(':idVisite',$ordonnance->getIdVisite(),PDO::PARAM_INT);
 			$q->bindValue(':idMedicament',$ordonnance->getIdMedicament(),PDO::PARAM_INT);
 			$q->bindValue(':qte',$ordonnance->getQte(),PDO::PARAM_INT);
@@ -98,7 +92,7 @@ class OrdonnanceDAO
 				$ordonnance->setQte($data->qte);
 				$ordonnance->setCommentaire($data->commentaire);
 				$ordonnance->setJour(new DateTime($data->jour));
-				$ordonnance->setFini($data->fini);
+				$ordonnance->setIdPharmacien($data->id_pharmacien);
 
 			return $ordonnance;
 		} catch (Exception $e) {
@@ -117,7 +111,7 @@ class OrdonnanceDAO
 	{
 		try {
 			//on recupere les données
-			$q = $this->_db->prepare('SELECT ordonnance.id, ordonnance.id_visite, ordonnance.id_medicament, ordonnance.qte, ordonnance.commentaire, ordonnance.jour, ordonnance.fini FROM ordonnance INNER JOIN visite ON ordonnance.id_visite = visite.id WHERE visite.id_medecin = ?');
+			$q = $this->_db->prepare('SELECT ordonnance.id, ordonnance.id_visite, ordonnance.id_medicament, ordonnance.qte, ordonnance.commentaire, ordonnance.jour, ordonnance.id_pharmacien FROM ordonnance INNER JOIN visite ON ordonnance.id_visite = visite.id WHERE visite.id_medecin = ?');
 			$q->execute(array($medecin->getId()));
 			
 			while ($data=$q->fetch(PDO::FETCH_OBJ)) 
@@ -130,12 +124,40 @@ class OrdonnanceDAO
 				$ordonnance->setQte($data->qte);
 				$ordonnance->setCommentaire($data->commentaire);
 				$ordonnance->setJour(new DateTime($data->jour));
-				$ordonnance->setFini($data->fini);
+				$ordonnance->setIdPharmacien($data->id_pharmacien);
 
 				$array[] = $ordonnance;
 			}
+			return $array;
+		} catch (Exception $e) {
+			echo $e;
+			return 0;
+		}
+	}
 
+	public function selectForVisit(Visite $visite)
+	{
+		try {
+			//on recupere les données
+			$q = $this->_db->prepare('SELECT ordonnance.id, ordonnance.id_visite, ordonnance.id_medicament, ordonnance.qte, ordonnance.commentaire, ordonnance.jour, ordonnance.fini FROM ordonnance WHERE id_visite = ?');
+			$q->execute(array($visite->getId()));
+			
+			$array ='';
 
+			while ($data=$q->fetch(PDO::FETCH_OBJ)) 
+			{
+				//et on les écrit dans un Ordonnance
+				$ordonnance = new Ordonnance();
+				$ordonnance->setId($data->id);
+				$ordonnance->setVisite($this->_visiteDao->select($data->id_visite));
+				$ordonnance->setMedicament($this->_medicamentDao->select($data->id_medicament));
+				$ordonnance->setQte($data->qte);
+				$ordonnance->setCommentaire($data->commentaire);
+				$ordonnance->setJour(new DateTime($data->jour));
+				$ordonnance->setIdPharmacien($data->id_pharmacien);
+
+				$array[] = $ordonnance;
+			}
 			return $array;
 		} catch (Exception $e) {
 			return 0;
@@ -166,7 +188,7 @@ class OrdonnanceDAO
 				$ordonnance->setQte($data->qte);
 				$ordonnance->setCommentaire($data->commentaire);
 				$ordonnance->setJour(new DateTime($data->jour));
-				$ordonnance->setFini($data->fini);
+				$ordonnance->setIdPharmacien($data->id_pharmacien);
 
 
 
@@ -189,12 +211,13 @@ class OrdonnanceDAO
 	public function update(Ordonnance $ordonnance)
 	{
 		try {
-			$q = $this->_db->prepare('UPDATE ordonnance SET id_visite=:idVisite, id_medicament=:idMedicament,qte=:qte,commentaire=:commentaire WHERE id = :id');
-			$q->bindValue(':id',$ordonnance->getId(),PDO::PARAM_INT);
+			$q = $this->_db->prepare('UPDATE ordonnance SET id_visite=:idVisite, id_medicament=:idMedicament,qte=:qte,commentaire=:commentaire,id_pharmacien = :idPharmacien WHERE id = :id');
 			$q->bindValue(':idVisite',$ordonnance->getIdVisite(),PDO::PARAM_INT);
 			$q->bindValue(':idMedicament',$ordonnance->getIdMedicament(),PDO::PARAM_INT);
 			$q->bindValue(':qte',$ordonnance->getQte(),PDO::PARAM_INT);
 			$q->bindValue(':commentaire',$ordonnance->getCommentaire(),PDO::PARAM_STR);
+			$q->bindValue(':idPharmacien',$ordonnance->getIdPharmacien(),PDO::PARAM_INT);
+			$q->bindValue(':id',$ordonnance->getId(),PDO::PARAM_INT);
 			$q->execute();
 
 			return 1;//tout c'est bien passé
