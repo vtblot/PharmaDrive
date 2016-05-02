@@ -1,7 +1,7 @@
 <form class="form-horizontal" method="post">
 <fieldset>
   <legend class="legend2">Prescription</legend>
-  <input type="hidden" id="visite" name="visite" value="2" />
+  <input type="hidden" id="visite" name="visite" value="<?php echo $id; ?>" />
   <div class="form-group">
     <label for="medicament" class="col-lg-2 control-label">Médicament</label>
     <div class="col-lg-10">
