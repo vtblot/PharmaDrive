@@ -1,9 +1,10 @@
 
 <div class="jumbotron">
 	<form class="form-horizontal">
-
+		
 		<fieldset>
 			<legend>Visite du <?php echo $visite->getdateVisite()?></legend>
+			<a class="btn btn-primary float" href="../ordonnance/nouveau/<?php echo $visite->getId(); ?>">Ajouter une ordonnance</a>
 			<table style="width:100%" cellspacing="10">
 				<tr>
 					<td style="width:42%">
@@ -30,9 +31,11 @@
 							<div class="panel-body">
 								<blockquote>
 									<p><?php 
-									echo "Prénom : ".$visite->getPatient()->getPrenom()." <br/>"."<br/>";
-									echo "Nom : ".$visite->getPatient()->getNom(); ?></p>
-									<small><?php echo "NumSécu : ".$visite->getPatient()->getNumSecu()." ".$visite->getPatient()->getAdresse().$visite->getPatient()->getVille(); ?></small>
+									echo 'Prénom : '.$visite->getPatient()->getPrenom().' <br/>'.'<br/>';
+									echo 'Nom : '.$visite->getPatient()->getNom(); ?></p>
+									<small><?php echo 'Adresse : ',$visite->getPatient()->getAdresse(); ?></small>
+									<small><?php echo 'Ville : ',$visite->getPatient()->getVille(); ?></small>
+									<small><?php echo 'Numéro de sécurité sociale : ',$visite->getPatient()->getNumSecu(); ?></small>
 								</blockquote>
 							</div>
 						</div>
@@ -48,18 +51,21 @@
 				<div class="panel-body">
 					<strong>
 					<?php 
-					echo "Observations : ";
-
-					echo $visite->getCommentaire(); 
+					echo 'Observations : ',$visite->getCommentaire(); 
 					?>
 					</strong>
 				</div>
-				<div class="panel-body">
-					<strong>Ordonnances :</strong>
-					<?php
-						include_once '../ordonnance/listeOrdo.php';
-					?>
-				</div>
+				<?php
+					if(count($ordonnances)>1)
+					{
+						//si on trouve des ordonnances liées à cette visite
+
+						echo '<div class="panel-body">';
+							echo '<strong>Ordonnances :</strong>';
+							include_once '../ordonnance/listeOrdo.php';
+						echo '</div>';
+					}
+				?>
 			</div>
 
 
