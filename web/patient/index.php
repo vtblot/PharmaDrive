@@ -7,12 +7,13 @@ include_once '../nav.php';
 
 if(!$medecin)
 {
-  	//si il est pas medecin, on le renvoie à l'aceuil
-  	redirige('/ppe_pharmadrive_noob');
+  	//si il est pas medecin, on le renvoie à l'acceuil
+  	redirige('/ppe_pharmadrive');
 }
 
 
-var_dump($_GET);
+if($debug)
+	var_dump($_GET);
 
 if(isset($_GET['lien']))
 {
@@ -20,25 +21,32 @@ if(isset($_GET['lien']))
 		case 'detail':
 			//on veut voir le detail d'une patient
 			
-			if(!isset($_GET['nom']) && !isset($_GET['prenom']))
+			if(!isset($_GET['id']))
 			{
-			  	//si on a pas renseiller le nom et le prenom pour le patient
+			  	//si on a pas renseiller l'id pour le patient
 
 				//on créer un message d'erreur et on redirige
 				$_SESSION['alert'] = new Alert('erreur','Patient invalide');
-				redirige('/ppe_pharmadrive_noob/patient');
+				redirige('/ppe_pharmadrive/patient');
 			}
+			else if (!$patientDao->exist($_GET['id'])) 
+			{
+				//le patient n'existe pas dans la bdd
 
-			/*
-			* Verifier que le patient existe
-			*/
+				$_SESSION['alert'] = new Alert('erreur','Patient introuvable');
+				redirige('/ppe_pharmadrive/patient');
+			}
+			
+			if($debug)
+				var_dump($_GET['id']);
 
+			$patient = $patientDao->select($_GET['id']);
 
-			/**
-			*
-			*  METTRE LE CODE CORRESPONDANT
-			*
-			*/
+			$visites = $visiteDao->selectForPatient($patient);
+
+			include_once 'detail.php';
+			include_once '../visite/listeVisite.php';
+
 			break;
 		case 'nouveau':
 			//on veut créer un patient
@@ -57,7 +65,7 @@ if(isset($_GET['lien']))
 			//en cas de lien invalide, on redirige vers l'index
 
 			$_SESSION['alert'] = new Alert('erreur','Cette page n\'existe pas');
-			redirige('/ppe_pharmadrive_noob/patient');
+			redirige('/ppe_pharmadrive/patient');
 			break;
 	}
 }
