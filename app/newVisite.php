@@ -9,7 +9,7 @@
 		//le patient n'existe pas
 
 		$_SESSION['alert'] = new Alert('erreur','Patient introuvable');
-		redirige('/ppe_pharmadrive_noob/visite/nouveau');
+		redirige('/ppe_pharmadrive/visite/nouveau');
 	}
 
 	//on créer une visite et on la remplie
@@ -24,12 +24,12 @@
 	{
 		//on a bien ajouté la visite
 		$_SESSION['alert'] = new Alert('success','Visite ajoutée');
-		redirige('/ppe_pharmadrive_noob/visite');
+		redirige('/ppe_pharmadrive/visite');
 	}
 	else
 	{
 		$_SESSION['alert'] = new Alert('danger','Une erreur est survenue');
-		redirige('/ppe_pharmadrive_noob/visite/nouveau');
+		redirige('/ppe_pharmadrive/visite/nouveau');
 	}
 
 ?>
